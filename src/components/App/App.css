@@ -1,4 +1,4 @@
-.App__content {
+.app__content {
 	max-width: 1280px;
 	min-width: 320px;
 	margin: 0 auto;
@@ -6,5 +6,31 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	
+}
+
+.app__header {
+	max-width: 1280px;
+	min-width: 320px;
+	box-sizing: border-box;
+}
+
+.app__button {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.app__button:hover {
+	opacity: 0.8;
+}
+
+.app__link {
+	text-decoration: none;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.app__link:hover {
+	opacity: 0.7;
 }
