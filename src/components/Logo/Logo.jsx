@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../../images/icons/logo.svg';
 import './Logo.css';
 
-export default function Logo({ className }) {
+export default function Logo({ className ,onClick }) {
   return (
-    <a href="/" className={`logo ${className.link}`}>
+    <Link to="/" className={`logo ${className.link}`} onClick={onClick}>
       <img src={logo} alt="page-logo" className="logo__icon" />
-    </a>
+    </Link>
   );
 }
