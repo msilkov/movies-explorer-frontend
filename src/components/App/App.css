@@ -25,6 +25,7 @@
 	min-width: 320px;
 	box-sizing: border-box;
 	margin-top: auto;
+	background-color: #F8F8F8;
 }
 
 .app__button {
