@@ -14,6 +14,11 @@
 	min-width: 320px;
 	box-sizing: border-box;
 }
+.app__main {
+	max-width: 1280px;
+	min-width: 320px;
+	box-sizing: border-box;
+}
 
 .app__footer{
 	max-width: 1280px;
@@ -24,9 +29,8 @@
 
 .app__button {
 	border: none;
-	background-color: transparent;
 	cursor: pointer;
-	transition: all 0.3s;
+	transition: opacity 0.3s;
 }
 
 .app__button:hover {
@@ -36,7 +40,7 @@
 .app__link {
 	text-decoration: none;
 	cursor: pointer;
-	transition: all 0.3s;
+	transition: opacity 0.3s;
 }
 
 .app__link:hover {

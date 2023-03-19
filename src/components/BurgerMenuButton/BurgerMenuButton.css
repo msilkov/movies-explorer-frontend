@@ -1,7 +1,7 @@
 .burger-menu-button {
 	display: none;
 	padding: 10px 9px;
-  
+	background-color: transparent;
 }
 
 .burger-menu-button__line {
@@ -10,43 +10,38 @@
 	height: 3px;
 	background-color: #000;
 	margin-bottom: 7px;
-  z-index: 10;
-  transition: transform 0.3s ease-in-out;
+	z-index: 10;
+	transition: transform 0.3s ease-in-out;
 }
 .burger-menu-button__line:first-child {
-  transform-origin: center;
+	transform-origin: center;
 }
 .burger-menu-button__line:last-child {
-  transform-origin: center;
-  margin-bottom: 0;
+	transform-origin: center;
+	margin-bottom: 0;
 }
 .burger-menu-button__line:nth-child(2) {
-  margin-bottom: 0;
-  transform-origin: center;
-  height: calc(3px / 2);
+	margin-bottom: 0;
+	transform-origin: center;
+	height: calc(3px / 2);
 }
 .burger-menu-button__line:nth-child(3) {
-  transform-origin: center;
-  height: calc(3px / 2);
+	transform-origin: center;
+	height: calc(3px / 2);
 }
 
 .burger-menu-button__line_state_active:first-child {
-  transform: rotate(45deg) translate(7px, 7px);
- 
+	transform: rotate(45deg) translate(7px, 7px);
 }
 .burger-menu-button__line_state_active:last-child {
-  transform: rotate(-45deg) translate(7px, -7px);
- 
+	transform: rotate(-45deg) translate(7px, -7px);
 }
 .burger-menu-button__line_state_active:nth-child(2) {
-  transform:  rotate(45deg) scaleY(0);
- 
+	transform: rotate(45deg) scaleY(0);
 }
 .burger-menu-button__line_state_active:nth-child(3) {
-  transform:  rotate(-45deg) scaleY(0);
- 
+	transform: rotate(-45deg) scaleY(0);
 }
-
 
 @media only screen and (max-width: 768px) {
 	.burger-menu-button {
@@ -55,9 +50,7 @@
 }
 
 @media only screen and (max-width: 320px) {
-  .burger-menu-button__line {
-  
-    width: 22px;
-  
-  }
+	.burger-menu-button__line {
+		width: 22px;
+	}
 }
