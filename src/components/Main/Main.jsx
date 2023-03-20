@@ -1,4 +1,5 @@
 import React from 'react';
+import AboutMe from '../AboutMe/AboutMe';
 import AboutProject from '../AboutProject/AboutProject';
 import Promo from '../Promo/Promo';
 import Techs from '../Techs/Techs';
@@ -10,6 +11,7 @@ export default function Main({ className, userTechnologies }) {
 			<Promo className={className} />
 			<AboutProject />
 			<Techs userTechnologies={userTechnologies} />
+			<AboutMe className={className} />
 		</main>
 	);
 }
