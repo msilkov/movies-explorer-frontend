@@ -1,0 +1,33 @@
+.search {
+	padding: 82px 70px 0;
+}
+.search__content {
+	max-width: 1140px;
+	padding-bottom: 40px;
+	border-bottom: 1px solid #e8e8e8;
+}
+.search__form {
+	margin-bottom: 27px;
+}
+
+.search__filter {
+	margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+	.search {
+		padding: 80px 29px 0;
+	}
+	.search__form {
+		margin-bottom: 40px;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.search {
+		padding: 80px 14px 0;
+	}
+	.search__form {
+		margin-bottom: 46px;
+	}
+}

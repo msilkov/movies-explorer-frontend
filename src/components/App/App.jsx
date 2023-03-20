@@ -1,31 +1,30 @@
 import React, { useState } from 'react';
-import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 import './App.css';
-
-const classes = {
-	content: 'app__content',
-	header: 'app__header',
-	main: 'app__main',
-	footer: 'app__footer',
-	link: 'app__link',
-	button: 'app__button',
-};
+import { appClasses } from '../../utils/constants';
+import Movies from '../Movies/Movies';
 
 export default function App() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 
 	function handleLogin() {
 		setLoggedIn(!isLoggedIn);
-		console.log('run');
 	}
 
 	return (
 		<div className="app__content">
-			<Header className={classes} loggedIn={isLoggedIn} onLogin={handleLogin} />
-			<Main className={classes} />
-			<Footer className={classes} />
+			<Header
+				className={appClasses}
+				loggedIn={isLoggedIn}
+				onLogin={handleLogin}
+			/>
+			{!isLoggedIn && <Main className={appClasses} />}
+
+      <Movies />
+
+			<Footer className={appClasses} />
 		</div>
 	);
 }

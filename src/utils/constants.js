@@ -26,4 +26,13 @@ const portfolioLinks = [
 	},
 ];
 
-export { userTechnologies, portfolioLinks };
+const appClasses = {
+	content: 'app__content',
+	header: 'app__header',
+	main: 'app__main',
+	footer: 'app__footer',
+	link: 'app__link',
+	button: 'app__button',
+};
+
+export { userTechnologies, portfolioLinks, appClasses };
