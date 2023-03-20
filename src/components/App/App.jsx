@@ -4,8 +4,6 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import './App.css';
 
-import { userTechnologies } from '../../utils/constants';
-
 const classes = {
 	content: 'app__content',
 	header: 'app__header',
@@ -26,7 +24,7 @@ export default function App() {
 	return (
 		<div className="app__content">
 			<Header className={classes} loggedIn={isLoggedIn} onLogin={handleLogin} />
-			<Main className={classes} userTechnologies={userTechnologies} />
+			<Main className={classes} />
 			<Footer className={classes} />
 		</div>
 	);

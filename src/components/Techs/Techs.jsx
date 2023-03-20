@@ -1,8 +1,10 @@
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import './Techs.css';
+import { userTechnologies } from '../../utils/constants';
 
-export default function Techs({ userTechnologies }) {
+
+export default function Techs() {
 	return (
 		<section className="techs">
 			<SectionTitle titleText={'Технологии'} className={'techs__title'} />
