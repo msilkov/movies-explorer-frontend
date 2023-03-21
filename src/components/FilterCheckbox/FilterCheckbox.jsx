@@ -4,7 +4,7 @@ import './FilterCheckbox.css';
 export default function FilterCheckbox({ label , className }) {
 	return (
 		<article className={`filterCheckbox ${className}`}>
-			<label className="filterCheckbox__label" for="ios-switch">
+			<label className="filterCheckbox__label">
 				<input
 					className="filterCheckbox__input-default"
 					type="checkbox"

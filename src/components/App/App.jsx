@@ -22,7 +22,7 @@ export default function App() {
 			/>
 			{!isLoggedIn && <Main className={appClasses} />}
 
-      <Movies />
+      <Movies appClassNames={appClasses} />
 
 			<Footer className={appClasses} />
 		</div>
