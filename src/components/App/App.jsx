@@ -9,6 +9,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 export default function App() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -100,11 +101,7 @@ export default function App() {
 				<Route path="/login" element={<Login className={appClasses} />}></Route>
 				<Route
 					path="*"
-					element={
-						<>
-							<h1>not found</h1>
-						</>
-					}
+					element={<NotFoundPage className={appClasses} />}
 				></Route>
 			</Routes>
 		</div>
