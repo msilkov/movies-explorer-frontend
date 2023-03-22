@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import './App.css';
 import { appClasses } from '../../utils/constants';
 import Movies from '../Movies/Movies';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 export default function App() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -13,18 +14,62 @@ export default function App() {
 		setLoggedIn(!isLoggedIn);
 	}
 
+	const location = useLocation();
+	const isSavedMovies = location.pathname === '/saved-movies';
+
 	return (
 		<div className="app__content">
-			<Header
-				className={appClasses}
-				loggedIn={isLoggedIn}
-				onLogin={handleLogin}
-			/>
-			{!isLoggedIn && <Main className={appClasses} />}
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<>
+							<Header
+								className={appClasses}
+								loggedIn={isLoggedIn}
+								onLogin={handleLogin}
+							/>
+							<Main className={appClasses} />
+							<Footer className={appClasses} />
+						</>
+					}
+				></Route>
 
-      <Movies appClassNames={appClasses} />
-
-			<Footer className={appClasses} />
+				<Route
+					path="/movies"
+					element={
+						<>
+							<Header
+								className={appClasses}
+								loggedIn={isLoggedIn}
+								onLogin={handleLogin}
+							/>
+							<Movies
+								appClassNames={appClasses}
+								isSavedMovies={isSavedMovies}
+							/>
+							<Footer className={appClasses} />
+						</>
+					}
+				></Route>
+				<Route
+					path="/saved-movies"
+					element={
+						<>
+							<Header
+								className={appClasses}
+								loggedIn={isLoggedIn}
+								onLogin={handleLogin}
+							/>
+							<Movies
+								appClassNames={appClasses}
+								isSavedMovies={isSavedMovies}
+							/>
+							<Footer className={appClasses} />
+						</>
+					}
+				></Route>
+			</Routes>
 		</div>
 	);
 }

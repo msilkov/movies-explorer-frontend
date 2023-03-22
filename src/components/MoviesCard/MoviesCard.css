@@ -41,6 +41,22 @@
 	background-repeat: no-repeat;
 	transition: all 0.5s;
 }
+
+.movie-card__delete-btn {
+	position: absolute;
+	top: 19px;
+	right: 14px;
+	width: 30px;
+	height: 30px;
+	border: none;
+	border-radius: 50%;
+	background-color: #f4f4f4;
+	background-image: url('../../images/icons/remove-icon.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	transition: all 0.5s;
+}
+
 .movie-card__thumbnail {
 	max-height: 203px;
 }

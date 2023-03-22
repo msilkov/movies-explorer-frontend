@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-export default function MoviesCardList({ movies, appClassNames, deviceWidth }) {
+export default function MoviesCardList({ movies, appClassNames, deviceWidth, isSavedMovies }) {
 	const [displayedMovies, setDisplayedMovies] = useState([]);
 
 	const { TABLET, LAPTOP } = deviceWidth;
@@ -33,7 +33,7 @@ export default function MoviesCardList({ movies, appClassNames, deviceWidth }) {
 			<ul className="movies-layout__list">
 				{displayedMovies.map((movie) => (
 					<li key={movie.movieId} className="movies-layout__item">
-						<MoviesCard movie={movie} appClassNames={appClassNames} />
+						<MoviesCard movie={movie} appClassNames={appClassNames} isSavedMovies={isSavedMovies} />
 					</li>
 				))}
 			</ul>

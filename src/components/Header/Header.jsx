@@ -8,11 +8,11 @@ import Navigation from '../Navigation/Navigation';
 export default function Header({ className, loggedIn, onLogin }) {
 	return (
 		<header className={`header ${className.header}`}>
-			<Logo className={className} onClick={onLogin} />
+			<Logo className={className} />
 			{loggedIn ? (
-				<Navigation className={className} />
+				<Navigation className={className} onClick={onLogin} />
 			) : (
-				<Auth className={className} />
+				<Auth className={className} onClick={onLogin} />
 			)}
 		</header>
 	);
