@@ -7,7 +7,7 @@ export default function Auth({ className, onClick }) {
       <a href="/register" className={`${className.link} auth__link`}>
         Регистрация
       </a>
-      <a  onClick={onClick} href="#" className={`${className.link} auth__link auth__link_type_button`}>
+      <a  onClick={onClick} href="/login" className={`${className.link} auth__link auth__link_type_button`}>
         Войти
       </a>
     </div>

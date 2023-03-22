@@ -7,14 +7,14 @@ import { appClasses } from '../../utils/constants';
 import Movies from '../Movies/Movies';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 export default function App() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 
 	const location = useLocation();
 	const isSavedMovies = location.pathname === '/saved-movies';
-	const isAuth =
-		location.pathname === '/register' || location.pathname === '/login';
 
 	const handleLogin = () => {
 		console.log(location.pathname);
@@ -90,6 +90,19 @@ export default function App() {
 								onLogin={handleLogin}
 							/>
 							<Profile className={appClasses} />
+						</>
+					}
+				></Route>
+				<Route
+					path="/register"
+					element={<Register className={appClasses} />}
+				></Route>
+				<Route path="/login" element={<Login className={appClasses} />}></Route>
+				<Route
+					path="*"
+					element={
+						<>
+							<h1>not found</h1>
 						</>
 					}
 				></Route>

@@ -1,0 +1,135 @@
+.register {
+	padding: 70px;
+	background-color: #fafafa;
+}
+
+.register__content {
+	margin: 0 auto;
+	max-width: 396px;
+	display: flex;
+	flex-direction: column;
+}
+
+.register__title {
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 29px;
+	margin: 36px 0 40px;
+}
+
+.register__form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.register__form-label {
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 12px;
+
+	color: #a0a0a0;
+	margin-bottom: 10px;
+}
+
+.register__form-input {
+	padding: 14px;
+	margin-bottom: 20px;
+	font-size: 13px;
+	line-height: 16px;
+}
+
+.register__form-input_type_error {
+	color: #ee3465;
+}
+
+.register__form-input:last-of-type {
+	margin-bottom: 0;
+}
+
+.register__error {
+	margin-top: 10px;
+	margin-bottom: 30px;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 12px;
+	color: #ee3465;
+}
+
+.register__form-submit-btn {
+	padding: 15px;
+	border: none;
+	border-radius: 3px;
+	background-color: #3456f3;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: center;
+	color: #ffffff;
+}
+
+.register__redirect {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 16px;
+}
+
+.register__redirect-text {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: center;
+	color: #a0a0a0;
+	margin: 0;
+}
+
+.register__redirect-link {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: center;
+	color: #3456f3;
+}
+
+@media only screen and (max-width: 768px) {
+	.register {
+		padding: 232px 70px 50px;
+	}
+
+	.register__error {
+		margin-bottom: 68px;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.register {
+		padding: 56px 30px 30px;
+	}
+
+	.register__content {
+		align-items: center;
+	}
+
+	.register__title {
+		margin: 45px 0 81px;
+	}
+
+	.register__error {
+		margin-bottom: 156px;
+	}
+	.register__form-submit-btn {
+		font-size: 12px;
+		line-height: 15px;
+	}
+
+	.register__redirect-text {
+		font-size: 12px;
+		line-height: 15px;
+	}
+
+	.register__redirect-link {
+		font-size: 12px;
+		line-height: 15px;
+	}
+}
