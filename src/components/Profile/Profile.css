@@ -1,0 +1,135 @@
+.profile {
+	padding: 76px 70px 70px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.profile__title {
+	max-width: 250px;
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 29px;
+	text-align: center;
+	margin: 0 0 108px;
+}
+
+.profile__form {
+	max-width: 410px;
+	max-height: 345px;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.profile__form-group {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 16px 0;
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.profile__form-group:nth-of-type(2) {
+	border-bottom: none;
+}
+
+.profile__form-group:last-of-type {
+	margin-top: auto;
+	border-bottom: none;
+	padding: 0;
+	flex-direction: column;
+}
+
+.profile__form-label {
+	font-weight: 500;
+	font-size: 11px;
+	line-height: 13px;
+}
+
+.profile__form-input {
+	max-width: 150px;
+	border: none;
+	background-color: #fafafa;
+	outline: none;
+	font-weight: 400;
+	font-size: 11px;
+	line-height: 13px;
+	text-align: right;
+	color: #3456f3;
+}
+
+.profile__form-span {
+	font-weight: 400;
+	font-size: 11px;
+	line-height: 13px;
+	text-align: right;
+}
+
+.profile__form-btn {
+	max-width: 125px;
+	padding: 0;
+	border: none;
+	background-color: #fafafa;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 16px;
+	text-align: center;
+	margin-bottom: 16px;
+}
+
+.profile__form-btn:last-of-type {
+	margin-bottom: 0;
+}
+
+.profile__form-btn_type_logout {
+	color: #ee3465;
+}
+
+.profile__form-btn_type_save {
+	max-width: 410px;
+	width: 100%;
+	padding: 15px;
+	background-color: #3456f3;
+	border-radius: 3px;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 17px;
+	color: #ffffff;
+}
+
+@media only screen and (max-width: 768px) {
+	.profile {
+		padding: 237px 70px 70px;
+	}
+
+	.profile__title {
+		margin: 0 0 81px;
+	}
+
+	.profile__form {
+		max-height: 336px;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.profile {
+		padding: 70px 30px 40px;
+	}
+
+	.profile__title {
+		margin: 0 0 66px;
+	}
+
+	.profile__form {
+		max-height: 503px;
+	}
+
+	.profile__form-btn {
+		font-size: 12px;
+		line-height: 15px;
+	}
+}

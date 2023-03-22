@@ -21,7 +21,7 @@ export default function Navigation({ className, onClick }) {
 						</a>
 					</li>
 					<li className="navigation__item">
-						<a onClick={onClick} className={`${className.link} navigation__link`} href="#">
+						<a onClick={onClick} className={`${className.link} navigation__link`} href="/profile">
 							<span className="navigation__link-text">Аккаунт</span>
 							<img
 								className="navigation__link-img"
