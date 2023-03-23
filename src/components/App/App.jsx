@@ -95,10 +95,10 @@ export default function App() {
 					}
 				></Route>
 				<Route
-					path="/register"
+					path="/signup"
 					element={<Register className={appClasses} />}
 				></Route>
-				<Route path="/login" element={<Login className={appClasses} />}></Route>
+				<Route path="/signin" element={<Login className={appClasses} />}></Route>
 				<Route
 					path="*"
 					element={<NotFoundPage className={appClasses} />}

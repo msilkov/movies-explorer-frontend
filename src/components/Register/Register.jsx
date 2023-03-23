@@ -85,7 +85,7 @@ export default function Register({ className }) {
 				<div className="register__redirect">
 					<p className="register__redirect-text">Уже зарегистрированы?&nbsp;</p>
 					<Link
-						to="/login"
+						to="/signin"
 						className={`${className.link} register__redirect-link`}
 					>
 						Войти

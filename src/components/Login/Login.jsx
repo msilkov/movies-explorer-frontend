@@ -73,7 +73,7 @@ export default function Login({ className }) {
 				<div className="login__redirect">
 					<p className="login__redirect-text">Ещё не зарегистрированы?&nbsp;</p>
 					<Link
-						to="/register"
+						to="/signup"
 						className={`${className.link} login__redirect-link`}
 					>
 						Регистрация
