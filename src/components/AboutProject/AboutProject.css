@@ -49,7 +49,7 @@
 	row-gap: 5px;
 }
 
-.about-project__progress-bar__item {
+.about-project__progress-bar-item {
 	width: 100%;
 	margin: 0;
 	padding: 9px 0;
@@ -60,16 +60,16 @@
 	background-color: #fafafa;
 }
 
-.about-project__progress-bar__item_type_highlight {
+.about-project__progress-bar-item_type_highlight {
 	color: #ffffff;
 	background-color: #3456f3;
 }
 
-.about-project__progress-bar__item_type_main {
+.about-project__progress-bar-item_type_main {
 	background-color: #f2f2f2;
 }
 
-.about-project__progress-bar__item_type_label {
+.about-project__progress-bar-item_type_label {
 	color: #a0a0a0;
 }
 
@@ -141,7 +141,7 @@
 		row-gap: 0;
 	}
 
-	.about-project__progress-bar__item {
+	.about-project__progress-bar-item {
 		padding: 11px 0;
 		font-size: 11px;
 		line-height: 13px;

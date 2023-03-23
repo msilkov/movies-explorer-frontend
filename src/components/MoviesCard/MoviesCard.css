@@ -59,6 +59,7 @@
 
 .movie-card__thumbnail {
 	max-height: 203px;
+	overflow: hidden;
 }
 
 .movie-card__thumbnail-img {

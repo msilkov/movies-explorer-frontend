@@ -9,7 +9,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 export default function Movies({ appClassNames, isSavedMovies }) {
 	return (
 		<main className={`${appClassNames.main} main`}>
-			<SearchSection />
+			<SearchSection appClassNames={appClassNames}/>
 			<MoviesCardList
 				movies={cardTemplates}
 				appClassNames={appClassNames}

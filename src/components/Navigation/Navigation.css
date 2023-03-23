@@ -19,8 +19,12 @@
 	margin-left: 20px;
 }
 
-.navigation__item:last-child {
+.navigation__item:last-of-type {
 	margin-left: 50px;
+}
+
+.navigation__item:first-of-type {
+	margin-left: 0;
 }
 
 .navigation__link {

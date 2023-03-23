@@ -6,7 +6,7 @@ import './Logo.css';
 export default function Logo({ className ,onClick }) {
   return (
     <Link to="/" className={`logo ${className.link}`} onClick={onClick}>
-      <img src={logo} alt="page-logo" className="logo__icon" />
+      <img src={logo} alt="Логотип страницы" className="logo__icon" />
     </Link>
   );
 }

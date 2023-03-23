@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './SearchForm.css';
-import { appClasses } from '../../utils/constants';
 import Input from '../Input/Input';
 import searchIcon from '../../images/icons/search-icon.svg';
 
-export default function SearchForm({ className }) {
+export default function SearchForm({ className, appClassNames }) {
 	const [searchQuery, setSearchQuery] = useState('');
 
 	function handleSubmit(event) {
@@ -21,9 +20,10 @@ export default function SearchForm({ className }) {
 				value={searchQuery}
 				placeholder="Фильм"
 				onChange={(event) => setSearchQuery(event.target.value)}
+				required
 			/>
 			<button
-				className={`${appClasses.button} form-search__button`}
+				className={`${appClassNames.button} form-search__button`}
 				type="submit"
 			>
 				<img className="form-search__icon" src={searchIcon} alt="Иконка поиска" />

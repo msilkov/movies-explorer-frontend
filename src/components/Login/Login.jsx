@@ -46,7 +46,7 @@ export default function Login({ className }) {
 						placeholder="E-mail"
 						minLength={2}
 						maxLength={30}
-						required=""
+						required
 					/>
 					<label className="login__form-label">Пароль</label>
 					<Input
@@ -58,14 +58,14 @@ export default function Login({ className }) {
 						placeholder="Пароль"
 						minLength={2}
 						maxLength={30}
-						required=""
+						required
 					/>
 					{error && (
 						<span className="login__error">Что-то пошло не так...</span>
 					)}
 					<button
 						type="submit"
-						className={`${className.link} login__form-submit-btn`}
+						className={`${className.button} login__form-submit-btn`}
 					>
 						Войти
 					</button>

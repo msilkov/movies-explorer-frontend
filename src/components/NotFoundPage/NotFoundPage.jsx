@@ -9,15 +9,19 @@ export default function NotFoundPage({ className }) {
 		navigate(-1);
 	};
 	return (
-		<section className="not-found not-found_position_center">
-			<h1 className="not-found__title">404</h1>
-			<p className="not-found__text">Страница не найдена</p>
-			<button
-				className={`${className.button} not-found__btn`}
-				onClick={handleGoBack}
-			>
-				Назад
-			</button>
+		<section className="not-found">
+			<div className="not-found__content">
+				<div className="not-found__text">
+					<h1 className="not-found__title">404</h1>
+					<p className="not-found__desc">Страница не найдена</p>
+				</div>
+				<button
+					className={`${className.button} not-found__btn`}
+					onClick={handleGoBack}
+				>
+					Назад
+				</button>
+			</div>
 		</section>
 	);
 }

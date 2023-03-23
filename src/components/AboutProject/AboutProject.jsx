@@ -30,16 +30,16 @@ export default function AboutProject() {
 				</div>
 			</div>
 			<div className="about-project__progress-bar">
-				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_highlight">
+				<p className="about-project__progress-bar-item about-project__progress-bar-item_type_highlight">
 					1 неделя
 				</p>
-				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_main">
+				<p className="about-project__progress-bar-item about-project__progress-bar-item_type_main">
 					4 недели
 				</p>
-				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_label">
+				<p className="about-project__progress-bar-item about-project__progress-bar-item_type_label">
 					Back-end
 				</p>
-				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_label">
+				<p className="about-project__progress-bar-item about-project__progress-bar-item_type_label">
 					Front-end
 				</p>
 			</div>

@@ -15,13 +15,19 @@
 	display: none;
 }
 .filterCheckbox__checkbox-area {
+	display: block;
 	width: 34px;
 	height: 14px;
 	border-radius: 20px;
 	background-color: #ebebeb;
 	transition: all 0.3s;
+	cursor: pointer;
+}
+.filterCheckbox__checkbox-area:hover {
+	opacity: 0.8;
 }
 .filterCheckbox__toggle-point {
+	display: block;
 	background-color: white;
 	width: 10px;
 	height: 10px;

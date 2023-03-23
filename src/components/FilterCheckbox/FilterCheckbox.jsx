@@ -11,9 +11,9 @@ export default function FilterCheckbox({ label , className }) {
 					id="ios-switch"
 					name="ios-switch"
 				/>
-				<div className="filterCheckbox__checkbox-area">
-					<div className="filterCheckbox__toggle-point"></div>
-				</div>
+				<span className="filterCheckbox__checkbox-area">
+					<span className="filterCheckbox__toggle-point"></span>
+				</span>
 				<span className="filterCheckbox__label-text"> {label}</span>
 			</label>
 		</article>

@@ -40,7 +40,7 @@ export default function MoviesCardList({ movies, appClassNames, deviceWidth, isS
 			{displayCount < movies.length && (
 				<div className="movies-layout__show-more">
 					<button
-						className="movies-layout__show-more-btn"
+						className={`movies-layout__show-more-btn ${appClassNames.button}`}
 						onClick={handleShowMore}
 					>
 						Ещё

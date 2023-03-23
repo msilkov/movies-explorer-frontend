@@ -30,7 +30,7 @@ export default function App() {
 	}, [location.pathname]);
 
 	return (
-		<div className="app__content">
+		<div className="app-content">
 			<Routes>
 				<Route
 					path="/"

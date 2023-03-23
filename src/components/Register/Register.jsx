@@ -38,7 +38,7 @@ export default function Register({ className }) {
 				<form className="register__form" onSubmit={handleSubmit}>
 					<label className="register__form-label">Имя</label>
 					<Input
-						type="name"
+						type="text"
 						name="name"
 						value={userData.name}
 						onChange={handleChange}
@@ -46,7 +46,7 @@ export default function Register({ className }) {
 						placeholder="Ваше Имя"
 						minLength={2}
 						maxLength={30}
-						required=""
+						required
 					/>
 					<label className="register__form-label">E-mail</label>
 					<Input
@@ -58,7 +58,7 @@ export default function Register({ className }) {
 						placeholder="E-mail"
 						minLength={2}
 						maxLength={30}
-						required=""
+						required
 					/>
 					<label className="register__form-label">Пароль</label>
 					<Input
@@ -70,14 +70,14 @@ export default function Register({ className }) {
 						placeholder="Пароль"
 						minLength={2}
 						maxLength={30}
-						required=""
+						required
 					/>
 					{error && (
 						<span className="register__error">Что-то пошло не так...</span>
 					)}
 					<button
 						type="submit"
-						className={`${className.link} register__form-submit-btn`}
+						className={`${className.button} register__form-submit-btn`}
 					>
 						Зарегистрироваться
 					</button>

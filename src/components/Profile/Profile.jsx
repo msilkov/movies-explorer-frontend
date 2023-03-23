@@ -7,7 +7,7 @@ export default function Profile({ className }) {
 	const [editMode, setEditMode] = useState(false);
 
 	const handleEdit = (event) => {
-    event.preventDefault();
+		event.preventDefault();
 		setEditMode(true);
 	};
 
@@ -32,6 +32,7 @@ export default function Profile({ className }) {
 								name="name"
 								defaultValue={userName}
 								autoFocus
+								required
 							/>
 						) : (
 							<span className="profile__form-span">{userName}</span>
@@ -45,6 +46,7 @@ export default function Profile({ className }) {
 								type="text"
 								name="email"
 								defaultValue={userEmail}
+								required
 							/>
 						) : (
 							<span className="profile__form-span">{userEmail}</span>
@@ -53,17 +55,20 @@ export default function Profile({ className }) {
 					<div className="profile__form-group">
 						{editMode ? (
 							<button
-								className="profile__form-btn profile__form-btn_type_save"
+								className={`profile__form-btn profile__form-btn_type_save ${className.button}`}
 								type="submit"
 							>
 								Сохранить
 							</button>
 						) : (
 							<>
-								<button className="profile__form-btn" onClick={handleEdit}>
+								<button
+									className={`profile__form-btn ${className.button}`}
+									onClick={handleEdit}
+								>
 									Редактировать
 								</button>
-								<button className="profile__form-btn profile__form-btn_type_logout">
+								<button className={`profile__form-btn profile__form-btn_type_logout ${className.button}`}>
 									Выйти из аккаунта
 								</button>
 							</>

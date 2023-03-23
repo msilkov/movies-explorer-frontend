@@ -1,28 +1,28 @@
-.app__content {
+.app-content {
 	max-width: 1280px;
 	min-width: 320px;
+	width: 100%;
+	min-height: 100vh;
 	margin: 0 auto;
 	box-sizing: border-box;
-	width: 100%;
-	height: 100vh;
 	display: flex;
 	flex-direction: column;
 }
 
-.app__header {
+.app-header {
 	max-width: 1280px;
 	min-width: 320px;
 	box-sizing: border-box;
 	background-color: #fafafa;
 }
-.app__main {
+.app-main {
 	max-width: 1280px;
 	min-width: 320px;
 	box-sizing: border-box;
 	background-color: #fafafa;
 }
 
-.app__footer {
+.app-footer {
 	max-width: 1280px;
 	min-width: 320px;
 	box-sizing: border-box;
@@ -30,22 +30,24 @@
 	background-color: #f8f8f8;
 }
 
-.app__button {
+.app-button {
 	border: none;
 	cursor: pointer;
 	transition: all 0.3s;
+	box-sizing: border-box;
 }
 
-.app__button:hover {
+.app-button:hover {
 	opacity: 0.8;
 }
 
-.app__link {
+.app-link {
 	text-decoration: none;
 	cursor: pointer;
 	transition: opacity 0.3s;
+	box-sizing: border-box;
 }
 
-.app__link:hover {
+.app-link:hover {
 	opacity: 0.7;
 }
