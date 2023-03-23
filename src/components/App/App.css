@@ -33,7 +33,7 @@
 .app__button {
 	border: none;
 	cursor: pointer;
-	transition: opacity 0.3s;
+	transition: all 0.3s;
 }
 
 .app__button:hover {

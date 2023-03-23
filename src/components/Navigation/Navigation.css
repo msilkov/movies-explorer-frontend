@@ -26,7 +26,6 @@
 .navigation__link {
 	display: flex;
 	align-items: center;
-	text-decoration: none;
 	color: #000;
 }
 
@@ -36,10 +35,14 @@
 
 .navigation__link-text {
 	font-weight: 500;
+	margin-right: 13px;
+
 }
 
 .navigation__link-img {
-	margin-left: 13px;
+	max-width: 30px;
+	height: 30px;
+	object-fit: cover;
 }
 
 @media only screen and (max-width: 768px) {

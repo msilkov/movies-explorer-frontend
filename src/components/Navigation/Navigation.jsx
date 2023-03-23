@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navigation.css';
 import userIcon from '../../images/icons/user-icon.svg';
-import BurgerMenuButton from '../BurgerMenuButton/BurgerMenuButton';
+import SideBar from '../SideBar/SideBar';
 export default function Navigation({ className, onClick }) {
 	return (
 		<>
@@ -32,7 +32,7 @@ export default function Navigation({ className, onClick }) {
 					</li>
 				</ul>
 			</nav>
-			<BurgerMenuButton className={className} />
+			<SideBar className={className} />
 		</>
 	);
 }
