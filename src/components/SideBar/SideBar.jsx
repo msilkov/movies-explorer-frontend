@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './SideBar.css';
 import userIcon from '../../images/icons/user-icon.svg';
 
@@ -50,35 +51,35 @@ export default function SideBar({ className }) {
 				<nav className="sidebar__nav">
 					<ul className="sidebar__list">
 						<li className="sidebar__item">
-							<a className={`${className.link} sidebar__link `} href="/movies">
+							<NavLink className={`${className.link} sidebar__link `} to="/">
 								Главная
-							</a>
+							</NavLink>
 						</li>
 						<li className="sidebar__item">
-							<a
+							<NavLink
 								className={`${className.link} sidebar__link sidebar__link_state_active`}
-								href="/movies"
+								to="/movies"
 							>
 								Фильмы
-							</a>
+							</NavLink>
 						</li>
 						<li className="sidebar__item">
-							<a
+							<NavLink
 								className={`${className.link} sidebar__link `}
-								href="/saved-movies"
+								to="/saved-movies"
 							>
 								Сохранённые фильмы
-							</a>
+							</NavLink>
 						</li>
 						<li className="sidebar__item">
-							<a className={`${className.link} sidebar__link `} href="/profile">
+							<NavLink className={`${className.link} sidebar__link `} to="/profile">
 								<span className="sidebar__link-text">Аккаунт</span>
 								<img
 									className="sidebar__link-img"
 									src={userIcon}
 									alt="Иконка пользователя"
 								/>
-							</a>
+							</NavLink>
 						</li>
 					</ul>
 				</nav>

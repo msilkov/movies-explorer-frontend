@@ -2,6 +2,7 @@ import React from 'react';
 import './PortfolioLinks.css';
 import { portfolioLinks } from '../../utils/constants';
 import linkIcon from '../../images/icons/arrow-icon.svg';
+import { Link } from 'react-router-dom';
 
 export default function PortfolioLinks({ className }) {
 	return (
@@ -9,8 +10,8 @@ export default function PortfolioLinks({ className }) {
 			<ul className="portfolio-links__list">
 				{portfolioLinks.map((link) => (
 					<li className="portfolio-links__item" key={link.id}>
-						<a
-							href={link.link}
+						<Link
+							to={link.link}
 							className={`${className.link} portfolio-links__link`}
 							target="_blank"
 							rel="noreferrer"
@@ -21,7 +22,7 @@ export default function PortfolioLinks({ className }) {
 								src={linkIcon}
 								alt="Стрелочка"
 							/>
-						</a>
+						</Link>
 					</li>
 				))}
 			</ul>

@@ -2,10 +2,11 @@ import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import './AboutMe.css';
 import userImage from '../../images/profile/student-img.jpeg';
+import { Link } from 'react-router-dom';
 
 export default function AboutMe({ className }) {
 	return (
-		<section className="about-me">
+		<section className="about-me" id="student">
 			<SectionTitle titleText={'Студент'} className={'about-me__title'} />
 			<div className="about-me__content">
 				<div className="about-me__content about-me__content_type_text">
@@ -20,12 +21,14 @@ export default function AboutMe({ className }) {
 						не останавливался на достигнутом и параллельно начал заниматься
 						фриланс-заказами.
 					</p>
-					<a
-						href="https://github.com/msilkov"
+					<Link
+						to="https://github.com/msilkov"
+						target="_blank"
+						rel="noreferrer"
 						className={`${className.link} about-me__link`}
 					>
 						Github
-					</a>
+					</Link>
 				</div>
 				<div className="about-me__content about-me__content_type_image">
 					<img

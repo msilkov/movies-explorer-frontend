@@ -4,7 +4,7 @@ import './AboutProject.css';
 
 export default function AboutProject() {
 	return (
-		<section className="about-project">
+		<section className="about-project" id="about">
 			<SectionTitle
 				className={'about-project__title'}
 				titleText={'О проекте'}
@@ -30,10 +30,18 @@ export default function AboutProject() {
 				</div>
 			</div>
 			<div className="about-project__progress-bar">
-				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_highlight">1 неделя</p>
-				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_main">4 недели</p>
-				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_label">Back-end</p>
-				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_label">Front-end</p>
+				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_highlight">
+					1 неделя
+				</p>
+				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_main">
+					4 недели
+				</p>
+				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_label">
+					Back-end
+				</p>
+				<p className="about-project__progress-bar__item about-project__progress-bar__item_type_label">
+					Front-end
+				</p>
 			</div>
 		</section>
 	);

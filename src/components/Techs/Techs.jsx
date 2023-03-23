@@ -6,7 +6,7 @@ import { userTechnologies } from '../../utils/constants';
 
 export default function Techs() {
 	return (
-		<section className="techs">
+		<section className="techs" id="technologies">
 			<SectionTitle titleText={'Технологии'} className={'techs__title'} />
 			<div className="techs__content">
 				<h3 className="techs__content-title">7 технологий</h3>
