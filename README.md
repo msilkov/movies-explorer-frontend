@@ -1,5 +1,6 @@
 # Проект: Movies Explorer (React App)
 
+## Макет Figma: https://disk.yandex.ru/d/Qnkf-S_EYcBFUg
 ## Описание проекта:
 "Movies Explorer (React App)" - фронтенд дипломного проекта на курсе веб-разработки в Яндекс Практикуме.
 
