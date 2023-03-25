@@ -63,6 +63,7 @@
 }
 
 .movie-card__thumbnail-img {
+	display: block;
 	width: 100%;
 	height: auto;
 	object-fit: cover;

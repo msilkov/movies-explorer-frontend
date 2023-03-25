@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Form from '../Form/Form';
+import Input from '../Input/Input';
 import './Profile.css';
 
 export default function Profile({ className }) {
@@ -22,17 +24,19 @@ export default function Profile({ className }) {
 		<main className={`${className.main}`}>
 			<section className="profile">
 				<h1 className="profile__title">{`Привет, ${userName}!`}</h1>
-				<form className="profile__form" onSubmit={handleSave}>
+				<Form className="profile__form" onSubmit={handleSave}>
 					<div className="profile__form-group">
 						<label className="profile__form-label">Имя</label>
 						{editMode ? (
-							<input
+							<Input
 								className="profile__form-input"
 								type="text"
 								name="name"
 								defaultValue={userName}
 								autoFocus
 								required
+								minLength={2}
+								maxLength={30}
 							/>
 						) : (
 							<span className="profile__form-span">{userName}</span>
@@ -41,7 +45,7 @@ export default function Profile({ className }) {
 					<div className="profile__form-group">
 						<label className="profile__form-label">E-mail</label>
 						{editMode ? (
-							<input
+							<Input
 								className="profile__form-input"
 								type="text"
 								name="email"
@@ -68,13 +72,15 @@ export default function Profile({ className }) {
 								>
 									Редактировать
 								</button>
-								<button className={`profile__form-btn profile__form-btn_type_logout ${className.button}`}>
+								<button
+									className={`profile__form-btn profile__form-btn_type_logout ${className.button}`}
+								>
 									Выйти из аккаунта
 								</button>
 							</>
 						)}
 					</div>
-				</form>
+				</Form>
 			</section>
 		</main>
 	);

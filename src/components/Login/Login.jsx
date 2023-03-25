@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Logo from '../Logo/Logo';
 import './Login.css';
 import { Link } from 'react-router-dom';
+import Form from '../Form/Form';
 import Input from '../Input/Input';
 
 export default function Login({ className }) {
@@ -35,7 +36,7 @@ export default function Login({ className }) {
 			<article className="login__content">
 				<Logo className={className} />
 				<h2 className="login__title">Рады видеть!</h2>
-				<form className="login__form" onSubmit={handleSubmit}>
+				<Form className="login__form" onSubmit={handleSubmit}>
 					<label className="login__form-label">E-mail</label>
 					<Input
 						type="email"
@@ -69,7 +70,8 @@ export default function Login({ className }) {
 					>
 						Войти
 					</button>
-				</form>
+				</Form>
+			
 				<div className="login__redirect">
 					<p className="login__redirect-text">Ещё не зарегистрированы?&nbsp;</p>
 					<Link

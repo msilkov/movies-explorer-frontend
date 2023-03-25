@@ -1,6 +1,7 @@
 .form-search {
 	max-width: 1140px;
 	display: flex;
+	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 }
@@ -9,6 +10,16 @@
 	max-width: 1086px;
 	width: 100%;
 	padding: 16px 20px;
+	border: 1px solid transparent;
+	background-color: #f4f4f4;
+	border-radius: 8px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.form-search__input:focus {
+	border-color: #3456f3;
 }
 
 .form-search__button {

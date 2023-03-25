@@ -1,26 +1,10 @@
 .input {
-	padding: 16px 20px;
-	background-color: #f4f4f4;
-	border: 1px solid transparent;
-	border-radius: 8px;
 	outline: none;
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 18px;
 	transition: all 0.5s;
 	box-sizing: border-box;
-}
-
-.input:focus {
-	border: 1px solid #3456f3;
 }
 
 .input::placeholder {
 	color: #a0a0a0;
 }
 
-@media only screen and (max-width: 320px) {
-	.input {
-		padding: 13px;
-	}
-}

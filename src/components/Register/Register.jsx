@@ -3,6 +3,7 @@ import Logo from '../Logo/Logo';
 import './Register.css';
 import { Link } from 'react-router-dom';
 import Input from '../Input/Input';
+import Form from '../Form/Form';
 
 export default function Register({ className }) {
 	const initialUserData = {
@@ -35,7 +36,7 @@ export default function Register({ className }) {
 			<article className="register__content">
 				<Logo className={className} />
 				<h2 className="register__title">Добро пожаловать!</h2>
-				<form className="register__form" onSubmit={handleSubmit}>
+				<Form className="register__form" onSubmit={handleSubmit}>
 					<label className="register__form-label">Имя</label>
 					<Input
 						type="text"
@@ -81,7 +82,7 @@ export default function Register({ className }) {
 					>
 						Зарегистрироваться
 					</button>
-				</form>
+				</Form>
 				<div className="register__redirect">
 					<p className="register__redirect-text">Уже зарегистрированы?&nbsp;</p>
 					<Link

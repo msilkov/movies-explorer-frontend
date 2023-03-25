@@ -17,9 +17,7 @@ export default function App() {
 	const location = useLocation();
 	const isSavedMovies = location.pathname === '/saved-movies';
 
-	const handleLogin = () => {
-		console.log(location.pathname);
-	};
+	
 
 	useEffect(() => {
 		if (location.pathname === '/') {
@@ -39,7 +37,7 @@ export default function App() {
 							<Header
 								className={appClasses}
 								loggedIn={isLoggedIn}
-								onLogin={handleLogin}
+							
 							/>
 							<Main className={appClasses} />
 							<Footer className={appClasses} />
@@ -54,7 +52,7 @@ export default function App() {
 							<Header
 								className={appClasses}
 								loggedIn={isLoggedIn}
-								onLogin={handleLogin}
+					
 							/>
 							<Movies
 								appClassNames={appClasses}
@@ -71,7 +69,7 @@ export default function App() {
 							<Header
 								className={appClasses}
 								loggedIn={isLoggedIn}
-								onLogin={handleLogin}
+							
 							/>
 							<Movies
 								appClassNames={appClasses}
@@ -88,7 +86,7 @@ export default function App() {
 							<Header
 								className={appClasses}
 								loggedIn={isLoggedIn}
-								onLogin={handleLogin}
+					
 							/>
 							<Profile className={appClasses} />
 						</>

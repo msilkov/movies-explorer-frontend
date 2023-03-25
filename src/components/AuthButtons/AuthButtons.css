@@ -1,31 +1,38 @@
-.auth {
+.auth-buttons {
 	max-width: 213px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
-.auth__link {
+.auth-buttons__button {
 	font-weight: 500;
 	font-size: 12px;
 	line-height: 16px;
 	padding: 8px 10px;
 	margin-left: 20px;
-	color: #000;
+	background-color: transparent;
 }
-.auth__link_type_button {
+.auth-buttons__button_type_login {
 	padding: 8px 20px;
 	background-color: #3456f3;
 	border-radius: 3px;
-	color: #ffffff;
+}
+
+.auth-buttons__link{
+	color: #000;
+}
+
+.auth-buttons__link_type_login{
+	color: #fff;
 }
 
 @media only screen and (max-width: 320px) {
-	.auth__link {
+	.auth-buttons__button {
 		font-size: 10px;
 		padding: 8px 10px;
 		margin-left: 4px;
 	}
-	.auth__link_type_button {
+	.auth-buttons__button_type_login {
 		padding: 5px 12px;
 	}
 }

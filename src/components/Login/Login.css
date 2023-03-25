@@ -35,8 +35,16 @@
 .login__form-input {
 	padding: 14px;
 	margin-bottom: 20px;
+	font-weight: 400;
 	font-size: 13px;
 	line-height: 16px;
+	border: 1px solid transparent;
+	background-color: #f4f4f4;
+	border-radius: 8px;
+}
+
+.login__form-input:focus {
+	border-color: #3456f3;
 }
 
 .login__form-input_type_error {

@@ -9,8 +9,6 @@ export default function MoviesCard({ movie, appClassNames, isSavedMovies }) {
 	};
 
 	const handleMovieDeleteButton = (event) => {
-		console.log(`Movie ${movie.nameRU} has been deleted`);
-
 		const cardElement = event.target.closest('.movie-card');
 		if (cardElement) {
 			cardElement.remove();

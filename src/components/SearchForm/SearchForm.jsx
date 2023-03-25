@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './SearchForm.css';
 import Input from '../Input/Input';
 import searchIcon from '../../images/icons/search-icon.svg';
+import Form from '../Form/Form';
 
 export default function SearchForm({ className, appClassNames }) {
 	const [searchQuery, setSearchQuery] = useState('');
@@ -12,7 +13,7 @@ export default function SearchForm({ className, appClassNames }) {
 	}
 
 	return (
-		<form className={`form-search ${className}`} onSubmit={handleSubmit}>
+		<Form className={`form-search ${className}`} onSubmit={handleSubmit}>
 			<Input
 				className="form-search__input"
 				id="searchQuery"
@@ -28,6 +29,6 @@ export default function SearchForm({ className, appClassNames }) {
 			>
 				<img className="form-search__icon" src={searchIcon} alt="Иконка поиска" />
 			</button>
-		</form>
+		</Form>
 	);
 }
