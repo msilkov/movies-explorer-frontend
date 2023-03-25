@@ -1,0 +1,149 @@
+.about-project {
+	padding: 70px 70px 100px;
+	background-color: #fafafa;
+}
+
+.about-project__title {
+	margin-bottom: 70px;
+}
+
+.about-project__content {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	margin-bottom: 110px;
+}
+
+.about-project__content-item {
+	max-width: 550px;
+	padding-right: 10px;
+}
+
+.about-project__content-item:last-child {
+	padding-right: 0;
+}
+
+.about-project__content-title {
+	margin: 0 0 26px;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	letter-spacing: -0.04em;
+}
+
+.about-project__content-desc {
+	margin: 0;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.about-project__progress-bar {
+	max-width: 1140px;
+	width: 100%;
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	grid-template-columns: 1fr 4fr;
+	grid-template-rows: repeat(2, 36px);
+	row-gap: 5px;
+}
+
+.about-project__progress-bar-item {
+	width: 100%;
+	margin: 0;
+	padding: 9px 0;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: center;
+	background-color: #fafafa;
+}
+
+.about-project__progress-bar-item_type_highlight {
+	color: #ffffff;
+	background-color: #3456f3;
+}
+
+.about-project__progress-bar-item_type_main {
+	background-color: #f2f2f2;
+}
+
+.about-project__progress-bar-item_type_label {
+	color: #a0a0a0;
+}
+
+@media only screen and (max-width: 768px) {
+	.about-project {
+		padding: 50px 50px 80px;
+	}
+
+	.about-project__content {
+		margin-bottom: 93px;
+	}
+
+	.about-project__content-item {
+		max-width: 320px;
+	}
+
+	.about-project__content-title {
+		margin: 0 0 22px;
+	}
+
+	.about-project__content-desc {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.about-project__progress-bar {
+		grid-template-columns: 140px 4fr;
+	}
+}
+
+@media only screen and (max-width: 375px) {
+	.about-project {
+		padding: 28px 18px 50px;
+	}
+
+	.about-project__title {
+		margin-bottom: 60px;
+	}
+
+	.about-project__content {
+		flex-direction: column;
+		margin-bottom: 60px;
+	}
+
+	.about-project__content-item {
+		max-width: 285px;
+		margin-bottom: 56px;
+		padding-right: 0;
+	}
+
+	.about-project__content-item:last-child {
+		max-width: 285px;
+		margin-bottom: 0;
+	}
+
+	.about-project__content-title {
+		margin: 0 0 16px;
+		font-size: 18px;
+		line-height: 22px;
+	}
+
+	.about-project__content-desc {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	.about-project__progress-bar {
+		grid-template-columns: 100px 4fr;
+		row-gap: 0;
+	}
+
+	.about-project__progress-bar-item {
+		padding: 11px 0;
+		font-size: 11px;
+		line-height: 13px;
+	}
+}

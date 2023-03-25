@@ -1,0 +1,140 @@
+.login {
+	padding: 70px;
+	background-color: #FAFAFA;
+}
+
+.login__content {
+	margin: 0 auto;
+	max-width: 396px;
+	display: flex;
+	flex-direction: column;
+}
+
+.login__title {
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 29px;
+	margin: 36px 0 40px;
+}
+
+.login__form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.login__form-label {
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 12px;
+
+	color: #a0a0a0;
+	margin-bottom: 10px;
+}
+
+.login__form-input {
+	padding: 14px;
+	margin-bottom: 20px;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 16px;
+	border: 1px solid transparent;
+	background-color: #f4f4f4;
+	border-radius: 8px;
+}
+
+.login__form-input:focus {
+	border-color: #3456f3;
+}
+
+.login__form-input_type_error {
+	color: #ee3465;
+}
+
+.login__form-input:last-of-type {
+	margin-bottom: 0;
+}
+
+.login__error {
+	margin-top: 136px;
+	margin-bottom: 30px;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 12px;
+	color: #ee3465;
+}
+
+.login__form-submit-btn {
+	padding: 15px;
+	border: none;
+	border-radius: 3px;
+	background-color: #3456f3;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: center;
+	color: #ffffff;
+}
+
+.login__redirect {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 16px;
+}
+
+.login__redirect-text {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: center;
+	color: #a0a0a0;
+	margin: 0;
+}
+
+.login__redirect-link {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: center;
+	color: #3456f3;
+}
+
+@media only screen and (max-width: 768px) {
+	.login {
+		padding: 232px 70px 50px;
+	}
+
+}
+
+@media only screen and (max-width: 424px) {
+	.login {
+		padding: 56px 30px 30px;
+	}
+
+	.login__content {
+		align-items: center;
+	}
+
+	.login__title {
+		margin: 45px 0 81px;
+	}
+
+	.login__error {
+		margin-top: 225px;
+	}
+	.login__form-submit-btn {
+		font-size: 12px;
+		line-height: 15px;
+	}
+
+	.login__redirect-text {
+		font-size: 12px;
+		line-height: 15px;
+	}
+
+	.login__redirect-link {
+		font-size: 12px;
+		line-height: 15px;
+	}
+}

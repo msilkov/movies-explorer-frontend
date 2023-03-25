@@ -1,0 +1,10 @@
+.input {
+	outline: none;
+	transition: all 0.5s;
+	box-sizing: border-box;
+}
+
+.input::placeholder {
+	color: #a0a0a0;
+}
+
