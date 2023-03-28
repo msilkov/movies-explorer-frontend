@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './MoviesCard.css';
 
-export default function MoviesCard({ movie, appClassNames, isSavedMovies }) {
+export default function MoviesCard({ movie, appClassNames, isSavedMovieCard }) {
 	const [isOwnSaved, setOwnSaved] = useState(false);
 
 	const handleMovieSaveButton = () => {
@@ -29,7 +29,7 @@ export default function MoviesCard({ movie, appClassNames, isSavedMovies }) {
 
 	const movieDeleteButtonClassName = 'movie-card__delete-btn';
 
-	const saveOrDeleteButtonClassName = isSavedMovies
+	const saveOrDeleteButtonClassName = isSavedMovieCard
 		? movieDeleteButtonClassName
 		: movieSaveButtonClassName;
 
@@ -40,7 +40,7 @@ export default function MoviesCard({ movie, appClassNames, isSavedMovies }) {
 				<p className="movie-card__duration">{movieDuration(movie.duration)}</p>
 				<button
 					onClick={
-						isSavedMovies ? handleMovieDeleteButton : handleMovieSaveButton
+						isSavedMovieCard ? handleMovieDeleteButton : handleMovieSaveButton
 					}
 					className={`${saveOrDeleteButtonClassName} ${appClassNames.button}`}
 				></button>
@@ -48,7 +48,7 @@ export default function MoviesCard({ movie, appClassNames, isSavedMovies }) {
 			<div className="movie-card__thumbnail">
 				<img
 					className="movie-card__thumbnail-img"
-					src={movie.thumbnail}
+					src={`https://api.nomoreparties.co/${movie.image.url}`}
 					alt={`Постер фильма ${movie.nameRU}`}
 				/>
 			</div>

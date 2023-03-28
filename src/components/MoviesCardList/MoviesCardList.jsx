@@ -2,38 +2,64 @@ import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-export default function MoviesCardList({ movies, appClassNames, deviceWidth, isSavedMovies }) {
-	const [displayedMovies, setDisplayedMovies] = useState([]);
-
+export default function MoviesCardList({
+	movies,
+	appClassNames,
+	deviceWidth,
+	isSavedMoviesPath,
+}) {
 	const { TABLET, LAPTOP } = deviceWidth;
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [displayCount, setDisplayCount] = useState(0);
 
-	let INITIAL_MOVIE_COUNT;
+	useEffect(() => {
+		const handleResize = () => {
+			setTimeout(() => {
+				setWindowWidth(window.innerWidth);
+			}, 100);
+		};
 
-	if (window.innerWidth >= LAPTOP) {
-		INITIAL_MOVIE_COUNT = 12;
-	} else if (window.innerWidth >= TABLET) {
-		INITIAL_MOVIE_COUNT = 8;
-	} else {
-		INITIAL_MOVIE_COUNT = 5;
-	}
+		window.addEventListener('resize', handleResize);
 
-	const [displayCount, setDisplayCount] = useState(INITIAL_MOVIE_COUNT);
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	useEffect(() => {
+		if (windowWidth >= LAPTOP) {
+			setDisplayCount(12);
+		} else if (windowWidth >= TABLET) {
+			setDisplayCount(8);
+		} else {
+			setDisplayCount(5);
+		}
+	}, [windowWidth, TABLET, LAPTOP]);
+
+	const displayedMovies = movies.slice(0, displayCount);
 
 	const handleShowMore = () => {
+		let INITIAL_MOVIE_COUNT;
+		if (windowWidth >= LAPTOP) {
+			INITIAL_MOVIE_COUNT = 12;
+		} else if (windowWidth >= TABLET) {
+			INITIAL_MOVIE_COUNT = 8;
+		} else {
+			INITIAL_MOVIE_COUNT = 5;
+		}
 		setDisplayCount(displayCount + INITIAL_MOVIE_COUNT);
 	};
 
-	useEffect(() => {
-		setDisplayedMovies(movies.slice(0, displayCount));
-	}, [movies, displayCount]);
-
 	return (
 		<section className="movies-layout">
-      
 			<ul className="movies-layout__list">
 				{displayedMovies.map((movie) => (
-					<li key={movie.movieId} className="movies-layout__item">
-						<MoviesCard movie={movie} appClassNames={appClassNames} isSavedMovies={isSavedMovies} />
+					<li key={movie.id} className="movies-layout__item">
+						<MoviesCard
+							movie={movie}
+							appClassNames={appClassNames}
+							isSavedMovieCard={isSavedMoviesPath}
+						/>
 					</li>
 				))}
 			</ul>

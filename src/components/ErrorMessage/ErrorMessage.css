@@ -1,0 +1,16 @@
+.error-message {
+  margin: 0;
+	font-weight: 400;
+	font-size: 11px;
+	line-height: 13px;
+	text-align: center;
+	color: #ff004c;
+}
+
+.movies__error{
+  margin: 0 auto;
+  padding: 20px 70px;
+  font-weight: 400;
+  font-size: 18px;
+	line-height: 22px;
+}
