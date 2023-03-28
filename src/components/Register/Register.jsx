@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Input from '../Input/Input';
 import Form from '../Form/Form';
 
-export default function Register({ className }) {
+export default function Register({ className, onRegister }) {
 	const initialUserData = {
 		name: '',
 		email: '',
@@ -29,6 +29,9 @@ export default function Register({ className }) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
+		const { name, email, password } = userData;
+		if (!name || !email || !password) return;
+		onRegister(name, email, password);
 	}
 
 	return (

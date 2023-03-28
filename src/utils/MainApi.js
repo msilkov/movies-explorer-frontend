@@ -18,25 +18,25 @@ const request = ({
 	);
 };
 
-export const register = (password, email) => {
+export const register = (name, email, password) => {
 	return request({
 		url: '/signup',
-		data: { password, email },
+		data: { name, email, password },
 	});
 };
 
-export const login = (password, email) => {
+export const login = (email, password) => {
 	return request({
 		url: '/signin',
 		credentials: 'include',
-		data: { password, email },
+		data: { email, password },
 	});
 };
 
 export const logout = () => {
 	return request({
-		url: '/logout',
-		method: 'GET',
+		url: '/signout',
+		method: 'POST',
 		credentials: 'include',
 	});
 };

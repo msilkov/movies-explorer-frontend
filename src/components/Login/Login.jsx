@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 
-export default function Login({ className }) {
+export default function Login({ onLogin, className }) {
 	const initialUserData = {
-		name: '',
 		email: '',
 		password: '',
 	};
@@ -29,6 +28,9 @@ export default function Login({ className }) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
+		const { email, password } = userData;
+		if (!email || !password) return;
+		onLogin(email, password);
 	}
 
 	return (
@@ -71,7 +73,7 @@ export default function Login({ className }) {
 						Войти
 					</button>
 				</Form>
-			
+
 				<div className="login__redirect">
 					<p className="login__redirect-text">Ещё не зарегистрированы?&nbsp;</p>
 					<Link

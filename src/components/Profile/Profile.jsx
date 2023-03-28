@@ -3,7 +3,7 @@ import Form from '../Form/Form';
 import Input from '../Input/Input';
 import './Profile.css';
 
-export default function Profile({ className }) {
+export default function Profile({ className, onLogout }) {
 	const [userName, setUserName] = useState('Виталий');
 	const [userEmail, setUserEmail] = useState('pochta@yandex.ru');
 	const [editMode, setEditMode] = useState(false);
@@ -18,6 +18,11 @@ export default function Profile({ className }) {
 		setUserName(event.target.name.value);
 		setUserEmail(event.target.email.value);
 		setEditMode(false);
+	};
+
+	const handleLogout = (event) => {
+		event.preventDefault();
+		onLogout();
 	};
 
 	return (
@@ -74,6 +79,7 @@ export default function Profile({ className }) {
 								</button>
 								<button
 									className={`profile__form-btn profile__form-btn_type_logout ${className.button}`}
+									onClick={handleLogout}
 								>
 									Выйти из аккаунта
 								</button>
