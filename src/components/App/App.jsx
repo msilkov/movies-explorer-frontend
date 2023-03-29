@@ -48,9 +48,14 @@ export default function App() {
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			Promise.all([mainApi.getUserInfo(), moviesApi.getMovies()])
-				.then(([userData, movies]) => {
+			Promise.all([
+				mainApi.getUserInfo(),
+				mainApi.getSavedMovies(),
+				moviesApi.getMovies(),
+			])
+				.then(([userData, savedMovies, movies]) => {
 					setCurrentUser(userData);
+					setSavedMovies(savedMovies);
 					setInitialMovies(movies);
 				})
 				.catch((err) => {
@@ -99,6 +104,17 @@ export default function App() {
 			})
 			.catch((err) => {
 				console.log(`Что-то пошло не так: ${err}`);
+			});
+	};
+
+	const handleUpdateUserInfo = (name, email) => {
+		mainApi
+			.patchUserInfo(name, email)
+			.then((userData) => {
+				setCurrentUser(userData);
+			})
+			.catch((err) => {
+				console.log(`Ошибка при загрузке данных пользователя: ${err}`);
 			});
 	};
 
@@ -214,7 +230,11 @@ export default function App() {
 							<ProtectedRoute loggedIn={isLoggedIn}>
 								<>
 									<Header className={appClasses} loggedIn={isLoggedIn} />
-									<Profile className={appClasses} onLogout={handleLogout} />
+									<Profile
+										className={appClasses}
+										onLogout={handleLogout}
+										onDataSave={handleUpdateUserInfo}
+									/>
 								</>
 							</ProtectedRoute>
 						}

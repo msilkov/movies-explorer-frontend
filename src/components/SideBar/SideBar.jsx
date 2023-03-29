@@ -11,6 +11,8 @@ export default function SideBar({ className }) {
 		setIsActive(!isActive);
 		setSidebarOpen(!sidebarOpen);
 	};
+	const linkStyleActive = `${className.link} sidebar__link sidebar__link_state_active`;
+	const linkStyle = `${className.link} sidebar__link`;
 
 	return (
 		<div className="sidebar">
@@ -48,16 +50,23 @@ export default function SideBar({ className }) {
 					sidebarOpen ? 'sidebar__content_state_open' : ''
 				}`}
 			>
-				<nav className="sidebar__nav">
+				<nav className="sidebar__nav" onClick={handleClick}>
 					<ul className="sidebar__list">
 						<li className="sidebar__item">
-							<NavLink className={`${className.link} sidebar__link `} to="/">
+							<NavLink
+								className={({ isActive }) =>
+									isActive ? linkStyleActive : linkStyle
+								} 
+								to="/"
+							>
 								Главная
 							</NavLink>
 						</li>
 						<li className="sidebar__item">
 							<NavLink
-								className={`${className.link} sidebar__link sidebar__link_state_active`}
+								className={({ isActive }) =>
+									isActive ? linkStyleActive : linkStyle
+								}
 								to="/movies"
 							>
 								Фильмы
@@ -65,14 +74,21 @@ export default function SideBar({ className }) {
 						</li>
 						<li className="sidebar__item">
 							<NavLink
-								className={`${className.link} sidebar__link `}
+								className={({ isActive }) =>
+									isActive ? linkStyleActive : linkStyle
+								}
 								to="/saved-movies"
 							>
 								Сохранённые фильмы
 							</NavLink>
 						</li>
 						<li className="sidebar__item">
-							<NavLink className={`${className.link} sidebar__link `} to="/profile">
+							<NavLink
+								className={({ isActive }) =>
+									isActive ? linkStyleActive : linkStyle
+								}
+								to="/profile"
+							>
 								<span className="sidebar__link-text">Аккаунт</span>
 								<img
 									className="sidebar__link-img"

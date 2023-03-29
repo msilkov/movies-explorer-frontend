@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 import './Profile.css';
 
-export default function Profile({ className, onLogout }) {
-	const [userName, setUserName] = useState('Виталий');
-	const [userEmail, setUserEmail] = useState('pochta@yandex.ru');
+export default function Profile({ className, onLogout, onDataSave }) {
+	const currentUser = useContext(CurrentUserContext);
+
+	const initialUserData = {
+		name: currentUser.name || '',
+		email: currentUser.email || '',
+	};
+	const [userData, setUserData] = useState(initialUserData);
+	
 	const [editMode, setEditMode] = useState(false);
 
 	const handleEdit = (event) => {
@@ -13,10 +20,20 @@ export default function Profile({ className, onLogout }) {
 		setEditMode(true);
 	};
 
-	const handleSave = (event) => {
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+		setUserData((oldData) => ({
+			...oldData,
+			[name]: value,
+		}));
+	};
+
+	const handleFormSubmit = (event) => {
 		event.preventDefault();
-		setUserName(event.target.name.value);
-		setUserEmail(event.target.email.value);
+		console.log(userData.name, userData.email);
+		const { name, email } = userData;
+		if (!name || !email) return;
+		onDataSave(name, email);
 		setEditMode(false);
 	};
 
@@ -28,8 +45,8 @@ export default function Profile({ className, onLogout }) {
 	return (
 		<main className={`${className.main}`}>
 			<section className="profile">
-				<h1 className="profile__title">{`Привет, ${userName}!`}</h1>
-				<Form className="profile__form" onSubmit={handleSave}>
+				<h1 className="profile__title">{`Привет, ${userData.name}!`}</h1>
+				<Form className="profile__form" onSubmit={handleFormSubmit}>
 					<div className="profile__form-group">
 						<label className="profile__form-label">Имя</label>
 						{editMode ? (
@@ -37,14 +54,15 @@ export default function Profile({ className, onLogout }) {
 								className="profile__form-input"
 								type="text"
 								name="name"
-								defaultValue={userName}
+								defaultValue={userData.name}
 								autoFocus
 								required
 								minLength={2}
 								maxLength={30}
+								onChange={handleChange}
 							/>
 						) : (
-							<span className="profile__form-span">{userName}</span>
+							<span className="profile__form-span">{userData.name}</span>
 						)}
 					</div>
 					<div className="profile__form-group">
@@ -54,11 +72,12 @@ export default function Profile({ className, onLogout }) {
 								className="profile__form-input"
 								type="text"
 								name="email"
-								defaultValue={userEmail}
+								defaultValue={userData.email}
 								required
+								onChange={handleChange}
 							/>
 						) : (
-							<span className="profile__form-span">{userEmail}</span>
+							<span className="profile__form-span">{userData.email}</span>
 						)}
 					</div>
 					<div className="profile__form-group">

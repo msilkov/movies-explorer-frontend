@@ -48,3 +48,20 @@ export const getUserInfo = () => {
 		credentials: 'include',
 	});
 };
+
+export const patchUserInfo = (name, email) => {
+	return request({
+		url: '/users/me',
+		method: 'PATCH',
+		credentials: 'include',
+		data: { name, email },
+	});
+};
+
+export const getSavedMovies = () => {
+	return request({
+		url: '/movies',
+		method: 'GET',
+		credentials: 'include',
+	});
+};
