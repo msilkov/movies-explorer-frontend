@@ -9,7 +9,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 export default function Movies({
 	appClassNames,
 	isSavedMoviesPath,
-	onSearchChange,
+	onSearchSubmit,
 	isLoading,
 	foundMovies,
 	savedMovies,
@@ -24,7 +24,7 @@ export default function Movies({
 		<main className={`${appClassNames.main} movies`}>
 			<SearchSection
 				appClassNames={appClassNames}
-				onSearchChange={onSearchChange}
+				onSearchSubmit={onSearchSubmit}
 				onFilterChange={onFilterChange}
 				isFilterChecked={isFilterChecked}
 			/>

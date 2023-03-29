@@ -61,21 +61,28 @@ export default function MoviesCard({
 					></button>
 				)}
 			</div>
-			<div className="movie-card__thumbnail">
-				{isSavedMovieCard ? (
-					<img
-						className="movie-card__thumbnail-img"
-						src={movie.image}
-						alt={`Постер фильма ${movie.nameRU}`}
-					/>
-				) : (
-					<img
-						className="movie-card__thumbnail-img"
-						src={`https://api.nomoreparties.co/${movie.image.url}`}
-						alt={`Постер фильма ${movie.nameRU}`}
-					/>
-				)}
-			</div>
+			<a
+				href={movie.trailerLink}
+				target="_blank"
+				rel="noreferrer"
+				className={`${appClassNames.link} movie-card__trailer-link`}
+			>
+				<div className="movie-card__thumbnail">
+					{isSavedMovieCard ? (
+						<img
+							className="movie-card__thumbnail-img"
+							src={movie.image}
+							alt={`Постер фильма ${movie.nameRU}`}
+						/>
+					) : (
+						<img
+							className="movie-card__thumbnail-img"
+							src={`https://api.nomoreparties.co/${movie.image.url}`}
+							alt={`Постер фильма ${movie.nameRU}`}
+						/>
+					)}
+				</div>
+			</a>
 		</article>
 	);
 }

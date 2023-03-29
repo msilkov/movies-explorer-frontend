@@ -5,10 +5,9 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 export default function SearchSection({
 	appClassNames,
-	onSearchChange,
+	onSearchSubmit,
 	onFilterChange,
 	isFilterChecked,
-
 }) {
 	return (
 		<section className="search">
@@ -16,8 +15,7 @@ export default function SearchSection({
 				<SearchForm
 					className="search__form"
 					appClassNames={appClassNames}
-					onSearchChange={onSearchChange}
-
+					onSearchSubmit={onSearchSubmit}
 				/>
 				<FilterCheckbox
 					label={'Короткометражки'}

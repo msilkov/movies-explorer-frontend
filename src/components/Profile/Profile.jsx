@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Form from '../Form/Form';
-import Input from '../Input/Input';
 import './Profile.css';
+import { useForm } from 'react-hook-form';
 
 export default function Profile({ className, onLogout, onDataSave }) {
 	const currentUser = useContext(CurrentUserContext);
@@ -12,7 +12,7 @@ export default function Profile({ className, onLogout, onDataSave }) {
 		email: currentUser.email || '',
 	};
 	const [userData, setUserData] = useState(initialUserData);
-	
+
 	const [editMode, setEditMode] = useState(false);
 
 	const handleEdit = (event) => {
@@ -27,10 +27,15 @@ export default function Profile({ className, onLogout, onDataSave }) {
 			[name]: value,
 		}));
 	};
+	const {
+		register,
+		formState: { errors, isValid },
+		handleSubmit,
+	} = useForm({
+		mode:'onBlur' 
+	});
 
-	const handleFormSubmit = (event) => {
-		event.preventDefault();
-		console.log(userData.name, userData.email);
+	const handleFormSubmit = () => {
 		const { name, email } = userData;
 		if (!name || !email) return;
 		onDataSave(name, email);
@@ -46,43 +51,70 @@ export default function Profile({ className, onLogout, onDataSave }) {
 		<main className={`${className.main}`}>
 			<section className="profile">
 				<h1 className="profile__title">{`Привет, ${userData.name}!`}</h1>
-				<Form className="profile__form" onSubmit={handleFormSubmit}>
+				<Form
+					className="profile__form"
+					onSubmit={handleSubmit(handleFormSubmit)}
+				>
 					<div className="profile__form-group">
 						<label className="profile__form-label">Имя</label>
 						{editMode ? (
-							<Input
+							<input
+								{...register('name', {
+									required: 'Поле обязательно к заполнению',
+									minLength: {
+										value: 2,
+										message: 'Минимальное количество символов 2',
+									},
+									maxLength: {
+										value: 30,
+										message: 'Максимальное количество символов 30',
+									},
+								})}
 								className="profile__form-input"
 								type="text"
 								name="name"
 								defaultValue={userData.name}
-								autoFocus
-								required
-								minLength={2}
-								maxLength={30}
 								onChange={handleChange}
 							/>
 						) : (
 							<span className="profile__form-span">{userData.name}</span>
 						)}
 					</div>
+					<span className="profile__form-span">
+						{errors?.name && (
+							<p className="profile__form-error">{errors.name.message}</p>
+						)}
+					</span>
 					<div className="profile__form-group">
 						<label className="profile__form-label">E-mail</label>
 						{editMode ? (
-							<Input
+							<input
+								{...register('email', {
+									required: 'Поле обязательно к заполнению',
+									pattern: {
+										value:
+											/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+										message: 'Некорректный email',
+									},
+								})}
 								className="profile__form-input"
 								type="text"
 								name="email"
 								defaultValue={userData.email}
-								required
 								onChange={handleChange}
 							/>
 						) : (
 							<span className="profile__form-span">{userData.email}</span>
 						)}
 					</div>
+					<span className="profile__form-span">
+						{errors?.email && (
+							<p className="profile__form-error">{errors.email.message}</p>
+						)}
+					</span>
 					<div className="profile__form-group">
 						{editMode ? (
-							<button
+							<button disabled={!isValid}
 								className={`profile__form-btn profile__form-btn_type_save ${className.button}`}
 								type="submit"
 							>

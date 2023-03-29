@@ -1,13 +1,13 @@
 import React, { useState,useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import './SearchForm.css';
-import Input from '../Input/Input';
 import searchIcon from '../../images/icons/search-icon.svg';
 import Form from '../Form/Form';
 
 export default function SearchForm({
 	className,
 	appClassNames,
-	onSearchChange,
+	onSearchSubmit,
 }) {
 	const storedSearchData = JSON.parse(localStorage.getItem('storedUserSearch'));
 	const storedSearchQuery = storedSearchData
@@ -19,9 +19,16 @@ export default function SearchForm({
 		setSearchQuery(storedSearchQuery);
 }, [storedSearchQuery]);
 
-	function handleSubmit(e) {
-		e.preventDefault();
-		onSearchChange(searchQuery);
+const {
+	register,
+	formState: { errors, isValid },
+	handleSubmit,
+} = useForm({
+	mode:'onBlur' 
+});
+
+	function handleFormSubmit() {
+		onSearchSubmit(searchQuery);
 	}
 
 	function handleSearchInputChange(e) {
@@ -29,17 +36,24 @@ export default function SearchForm({
 	}
 
 	return (
-		<Form className={`form-search ${className}`} onSubmit={handleSubmit}>
-			<Input
+		<Form className={`form-search ${className}`} onSubmit={handleSubmit(handleFormSubmit)}>
+			<input
+			{...register('search', {
+				required: 'Введите ключевое слово для поиска',
+			})}
 				className="form-search__input"
 				id="searchQuery"
 				type="text"
 				value={searchQuery}
 				placeholder="Фильм"
 				onChange={handleSearchInputChange}
-				required
 			/>
-			<button
+			<span className="form-search__span">
+						{errors?.search && (
+							<p className="form-search__error">{errors.search.message}</p>
+						)}
+					</span>
+			<button disabled={!isValid}
 				className={`${appClassNames.button} form-search__button`}
 				type="submit"
 			>

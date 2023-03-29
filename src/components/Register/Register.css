@@ -41,23 +41,22 @@
 	border: 1px solid transparent;
 	background-color: #f4f4f4;
 	border-radius: 8px;
+	outline: none;
+	transition: all 0.5s;
+	box-sizing: border-box;
+}
+
+.register__form-input::placeholder {
+	color: #a0a0a0;
 }
 
 .register__form-input:focus {
 	border-color: #3456f3;
 }
 
-.register__form-input_type_error {
-	color: #ee3465;
-}
-
-.register__form-input:last-of-type {
-	margin-bottom: 0;
-}
-
 .register__error {
-	margin-top: 10px;
-	margin-bottom: 68px;
+	padding: 0 20px;
+	margin-bottom: 20px;
 	font-weight: 400;
 	font-size: 10px;
 	line-height: 12px;
@@ -65,6 +64,7 @@
 }
 
 .register__form-submit-btn {
+	margin-top: 70px;
 	padding: 15px;
 	border: none;
 	border-radius: 3px;
@@ -74,6 +74,11 @@
 	line-height: 17px;
 	text-align: center;
 	color: #ffffff;
+}
+
+.register__form-submit-btn:disabled {
+	color: #c2c2c2;
+	background-color: #f4f4f4;
 }
 
 .register__redirect {
@@ -104,10 +109,6 @@
 	.register {
 		padding: 232px 70px 50px;
 	}
-
-	.register__error {
-		margin-bottom: 68px;
-	}
 }
 
 @media only screen and (max-width: 424px) {
@@ -123,10 +124,8 @@
 		margin: 45px 0 81px;
 	}
 
-	.register__error {
-		margin-bottom: 156px;
-	}
 	.register__form-submit-btn {
+		margin-top: 160px;
 		font-size: 12px;
 		line-height: 15px;
 	}

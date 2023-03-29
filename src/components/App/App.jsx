@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
@@ -38,13 +38,12 @@ export default function App() {
 			.then((user) => {
 				if (user) {
 					setLoggedIn(true);
-					navigate(location.pathname);
 				}
 			})
 			.catch((err) => {
 				console.log(`Что-то пошло не так: ${err}`);
 			});
-	}, [navigate, location.pathname]);
+	}, []);
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -73,7 +72,7 @@ export default function App() {
 		mainApi
 			.register(name, email, password)
 			.then(() => {
-				navigate('/signin');
+				handleLogin(email, password);
 			})
 			.catch((err) => {
 				console.log(`Что-то пошло не так: ${err}`);
@@ -133,14 +132,12 @@ export default function App() {
 		const deletedMovie = savedMovies.find(
 			(item) => item.movieId === movie.movieId
 		);
-
 		mainApi
 			.deleteSavedMovie(deletedMovie._id)
 			.then(() => {
 				const updatedSavedMovies = savedMovies.filter(
 					(item) => item._id !== deletedMovie._id
 				);
-
 				setSavedMovies(updatedSavedMovies);
 			})
 			.catch((err) => {
@@ -188,6 +185,7 @@ export default function App() {
 			setUserSearchQuery(newSearchQuery);
 		}, 1500);
 	};
+
 	const userSearchData = {
 		movies: foundMovies,
 		filter: isShortMoviesChecked,
@@ -220,7 +218,7 @@ export default function App() {
 										isSavedMoviesPath={SavedMoviesPath}
 										foundMovies={foundMovies}
 										savedMovies={savedMovies}
-										onSearchChange={handleSearch}
+										onSearchSubmit={handleSearch}
 										onFilterChange={handleFilterCheckBox}
 										isFilterChecked={isShortMoviesChecked}
 										isLoading={isLoading}
@@ -245,12 +243,13 @@ export default function App() {
 										isSavedMoviesPath={SavedMoviesPath}
 										foundMovies={foundMovies}
 										savedMovies={savedMovies}
-										onSearchChange={handleSearch}
+										onSearchSubmit={handleSearch}
 										onFilterChange={handleFilterCheckBox}
 										isFilterChecked={isShortMoviesChecked}
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}
+										onSave={handleSaveMovie}
 										onDelete={handleDeleteMovie}
 									/>
 									<Footer className={appClasses} />
