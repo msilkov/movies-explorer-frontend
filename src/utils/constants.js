@@ -4,7 +4,7 @@ const DEVICE_WIDTH = {
 	LAPTOP: 1280,
 };
 
-const userTechnologies = {
+const USER_TECHNOLOGIES = {
 	html: 'HTML',
 	css: 'CSS',
 	js: 'JS',
@@ -14,7 +14,7 @@ const userTechnologies = {
 	mongodb: 'mongoDB',
 };
 
-const portfolioLinks = [
+const PORTFOLIO_LINKS = [
 	{
 		id: '1',
 		text: 'Статичный сайт',
@@ -32,7 +32,7 @@ const portfolioLinks = [
 	},
 ];
 
-const appClasses = {
+const APP_CLASSES = {
 	content: 'app-content',
 	header: 'app-header',
 	main: 'app-main',
@@ -41,14 +41,14 @@ const appClasses = {
 	button: 'app-button',
 };
 
-const beatfilmMoviesUrl = "https://api.nomoreparties.co/beatfilm-movies";
+const BEATFILM_MOVIES_URL = "https://api.nomoreparties.co/beatfilm-movies";
 const MAIN_API_URL = "https://api.msilkov.diploma.nomoredomains.work";
 
 export {
-	userTechnologies,
-	portfolioLinks,
-	appClasses,
+	USER_TECHNOLOGIES,
+	PORTFOLIO_LINKS,
+	APP_CLASSES,
 	DEVICE_WIDTH,
-	beatfilmMoviesUrl,
+	BEATFILM_MOVIES_URL,
 	MAIN_API_URL
 };

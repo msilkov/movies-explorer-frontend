@@ -4,7 +4,6 @@ import './Login.css';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Form from '../Form/Form';
-import Input from '../Input/Input';
 
 export default function Login({ onLogin, className }) {
 	const initialUserData = {

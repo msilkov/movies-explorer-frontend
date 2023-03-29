@@ -1,5 +1,4 @@
 import React from 'react';
-import Input from '../Input/Input';
 import './FilterCheckbox.css';
 
 export default function FilterCheckbox({
@@ -11,7 +10,7 @@ export default function FilterCheckbox({
 	return (
 		<article className={`filterCheckbox ${className}`}>
 			<label className="filterCheckbox__label">
-				<Input
+				<input
 					className="filterCheckbox__input-default"
 					type="checkbox"
 					id="ios-switch"

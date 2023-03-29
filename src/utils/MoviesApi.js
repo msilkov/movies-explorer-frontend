@@ -1,4 +1,4 @@
-import { beatfilmMoviesUrl } from './constants';
+import { BEATFILM_MOVIES_URL } from './constants';
 
 const request = ({ method = 'GET', data }) => {
 	const options = {
@@ -9,7 +9,7 @@ const request = ({ method = 'GET', data }) => {
 		...(!!data && { body: JSON.stringify(data) }),
 	};
 
-	return fetch(`${beatfilmMoviesUrl}`, options).then((res) => {
+	return fetch(`${BEATFILM_MOVIES_URL}`, options).then((res) => {
 		if (res.ok) {
 			return res.json();
 		}

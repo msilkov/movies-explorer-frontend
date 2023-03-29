@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
@@ -10,7 +10,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { appClasses } from '../../utils/constants';
+import { APP_CLASSES } from '../../utils/constants';
 import * as moviesApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -201,9 +201,9 @@ export default function App() {
 						path="/"
 						element={
 							<>
-								<Header className={appClasses} loggedIn={isLoggedIn} />
-								<Main className={appClasses} />
-								<Footer className={appClasses} />
+								<Header className={APP_CLASSES} loggedIn={isLoggedIn} />
+								<Main className={APP_CLASSES} />
+								<Footer className={APP_CLASSES} />
 							</>
 						}
 					></Route>
@@ -212,9 +212,9 @@ export default function App() {
 						element={
 							<ProtectedRoute loggedIn={isLoggedIn}>
 								<>
-									<Header className={appClasses} loggedIn={isLoggedIn} />
+									<Header className={APP_CLASSES} loggedIn={isLoggedIn} />
 									<Movies
-										appClassNames={appClasses}
+										appClassNames={APP_CLASSES}
 										isSavedMoviesPath={SavedMoviesPath}
 										foundMovies={foundMovies}
 										savedMovies={savedMovies}
@@ -227,7 +227,7 @@ export default function App() {
 										onSave={handleSaveMovie}
 										onDelete={handleDeleteMovie}
 									/>
-									<Footer className={appClasses} />
+									<Footer className={APP_CLASSES} />
 								</>
 							</ProtectedRoute>
 						}
@@ -237,9 +237,9 @@ export default function App() {
 						element={
 							<ProtectedRoute loggedIn={isLoggedIn}>
 								<>
-									<Header className={appClasses} loggedIn={isLoggedIn} />
+									<Header className={APP_CLASSES} loggedIn={isLoggedIn} />
 									<Movies
-										appClassNames={appClasses}
+										appClassNames={APP_CLASSES}
 										isSavedMoviesPath={SavedMoviesPath}
 										foundMovies={foundMovies}
 										savedMovies={savedMovies}
@@ -252,7 +252,7 @@ export default function App() {
 										onSave={handleSaveMovie}
 										onDelete={handleDeleteMovie}
 									/>
-									<Footer className={appClasses} />
+									<Footer className={APP_CLASSES} />
 								</>
 							</ProtectedRoute>
 						}
@@ -263,9 +263,9 @@ export default function App() {
 						element={
 							<ProtectedRoute loggedIn={isLoggedIn}>
 								<>
-									<Header className={appClasses} loggedIn={isLoggedIn} />
+									<Header className={APP_CLASSES} loggedIn={isLoggedIn} />
 									<Profile
-										className={appClasses}
+										className={APP_CLASSES}
 										onLogout={handleLogout}
 										onDataSave={handleUpdateUserInfo}
 									/>
@@ -277,18 +277,18 @@ export default function App() {
 					<Route
 						path="/signup"
 						element={
-							<Register onRegister={handleRegister} className={appClasses} />
+							<Register onRegister={handleRegister} className={APP_CLASSES} />
 						}
 					></Route>
 
 					<Route
 						path="/signin"
-						element={<Login onLogin={handleLogin} className={appClasses} />}
+						element={<Login onLogin={handleLogin} className={APP_CLASSES} />}
 					></Route>
 
 					<Route
 						path="*"
-						element={<NotFoundPage className={appClasses} />}
+						element={<NotFoundPage className={APP_CLASSES} />}
 					></Route>
 				</Routes>
 			</CurrentUserContext.Provider>
