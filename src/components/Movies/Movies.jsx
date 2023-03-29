@@ -7,16 +7,18 @@ import Preloader from '../Preloader/Preloader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 export default function Movies({
-	foundMovies,
 	appClassNames,
 	isSavedMoviesPath,
 	onSearchChange,
 	isLoading,
+	foundMovies,
 	savedMovies,
 	isError,
 	errorMessage,
 	onFilterChange,
-	isFilterChecked
+	isFilterChecked,
+	onSave,
+	onDelete,
 }) {
 	return (
 		<main className={`${appClassNames.main} movies`}>
@@ -28,15 +30,19 @@ export default function Movies({
 			/>
 			{isLoading && <Preloader />}
 
-			{isError && <ErrorMessage message={errorMessage} className="movies__error" />}
+			{isError && (
+				<ErrorMessage message={errorMessage} className="movies__error" />
+			)}
 
 			{!isLoading && !isError && (
 				<MoviesCardList
-					movies={isSavedMoviesPath ? savedMovies : foundMovies}
+					foundMovies={foundMovies}
+					savedMovies={savedMovies}
 					appClassNames={appClassNames}
 					deviceWidth={DEVICE_WIDTH}
 					isSavedMoviesPath={isSavedMoviesPath}
-
+					onSave={onSave}
+					onDelete={onDelete}
 				/>
 			)}
 		</main>

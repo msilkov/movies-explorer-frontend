@@ -1,18 +1,31 @@
 import React, { useState } from 'react';
 import './MoviesCard.css';
 
-export default function MoviesCard({ movie, appClassNames, isSavedMovieCard }) {
-	const [isOwnSaved, setOwnSaved] = useState(false);
+export default function MoviesCard({
+	movie,
+	foundMovies,
+	savedMovies,
+	appClassNames,
+	isSavedMovieCard,
+	onSave,
+	onDelete,
+}) {
+	const isOwnSaved = savedMovies.some(
+		(savedMovie) => savedMovie.movieId === movie.id
+	);
 
 	const handleMovieSaveButton = () => {
-		setOwnSaved(!isOwnSaved);
+		if (isOwnSaved) {
+			onDelete(
+				savedMovies.filter((savedMovie) => savedMovie.movieId === movie.id)[0]
+			);
+		} else {
+			onSave(movie);
+		}
 	};
 
-	const handleMovieDeleteButton = (event) => {
-		const cardElement = event.target.closest('.movie-card');
-		if (cardElement) {
-			cardElement.remove();
-		}
+	const handleMovieDeleteButton = () => {
+		onDelete(movie);
 	};
 
 	const movieDuration = (durationNumber) => {
@@ -29,28 +42,39 @@ export default function MoviesCard({ movie, appClassNames, isSavedMovieCard }) {
 
 	const movieDeleteButtonClassName = 'movie-card__delete-btn';
 
-	const saveOrDeleteButtonClassName = isSavedMovieCard
-		? movieDeleteButtonClassName
-		: movieSaveButtonClassName;
-
 	return (
 		<article className="movie-card">
 			<div className="movie-card__desc">
 				<h3 className="movie-card__title">{movie.nameRU}</h3>
 				<p className="movie-card__duration">{movieDuration(movie.duration)}</p>
-				<button
-					onClick={
-						isSavedMovieCard ? handleMovieDeleteButton : handleMovieSaveButton
-					}
-					className={`${saveOrDeleteButtonClassName} ${appClassNames.button}`}
-				></button>
+				{isSavedMovieCard ? (
+					<button
+						type="button"
+						onClick={handleMovieDeleteButton}
+						className={`${movieDeleteButtonClassName} ${appClassNames.button}`}
+					></button>
+				) : (
+					<button
+						type="button"
+						onClick={handleMovieSaveButton}
+						className={`${movieSaveButtonClassName} ${appClassNames.button}`}
+					></button>
+				)}
 			</div>
 			<div className="movie-card__thumbnail">
-				<img
-					className="movie-card__thumbnail-img"
-					src={`https://api.nomoreparties.co/${movie.image.url}`}
-					alt={`Постер фильма ${movie.nameRU}`}
-				/>
+				{isSavedMovieCard ? (
+					<img
+						className="movie-card__thumbnail-img"
+						src={movie.image}
+						alt={`Постер фильма ${movie.nameRU}`}
+					/>
+				) : (
+					<img
+						className="movie-card__thumbnail-img"
+						src={`https://api.nomoreparties.co/${movie.image.url}`}
+						alt={`Постер фильма ${movie.nameRU}`}
+					/>
+				)}
 			</div>
 		</article>
 	);

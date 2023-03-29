@@ -118,6 +118,36 @@ export default function App() {
 			});
 	};
 
+	const handleSaveMovie = (movie) => {
+		mainApi
+			.addSavedMovie(movie)
+			.then((movieData) => {
+				setSavedMovies([movieData, ...savedMovies]);
+			})
+			.catch((err) => {
+				console.log(`Что-то пошло не так: ${err}`);
+			});
+	};
+
+	const handleDeleteMovie = (movie) => {
+		const deletedMovie = savedMovies.find(
+			(item) => item.movieId === movie.movieId
+		);
+
+		mainApi
+			.deleteSavedMovie(deletedMovie._id)
+			.then(() => {
+				const updatedSavedMovies = savedMovies.filter(
+					(item) => item._id !== deletedMovie._id
+				);
+
+				setSavedMovies(updatedSavedMovies);
+			})
+			.catch((err) => {
+				console.log(`Что-то пошло не так: ${err}`);
+			});
+	};
+
 	const handleFilterCheckBox = () => {
 		setShortMoviesChecked(!isShortMoviesChecked);
 	};
@@ -189,12 +219,15 @@ export default function App() {
 										appClassNames={appClasses}
 										isSavedMoviesPath={SavedMoviesPath}
 										foundMovies={foundMovies}
+										savedMovies={savedMovies}
 										onSearchChange={handleSearch}
 										onFilterChange={handleFilterCheckBox}
 										isFilterChecked={isShortMoviesChecked}
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}
+										onSave={handleSaveMovie}
+										onDelete={handleDeleteMovie}
 									/>
 									<Footer className={appClasses} />
 								</>
@@ -210,6 +243,7 @@ export default function App() {
 									<Movies
 										appClassNames={appClasses}
 										isSavedMoviesPath={SavedMoviesPath}
+										foundMovies={foundMovies}
 										savedMovies={savedMovies}
 										onSearchChange={handleSearch}
 										onFilterChange={handleFilterCheckBox}
@@ -217,6 +251,7 @@ export default function App() {
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}
+										onDelete={handleDeleteMovie}
 									/>
 									<Footer className={appClasses} />
 								</>

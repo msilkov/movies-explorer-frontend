@@ -3,10 +3,13 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 export default function MoviesCardList({
-	movies,
+	foundMovies,
+	savedMovies,
 	appClassNames,
 	deviceWidth,
 	isSavedMoviesPath,
+	onSave,
+	onDelete,
 }) {
 	const { TABLET, LAPTOP } = deviceWidth;
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -36,7 +39,9 @@ export default function MoviesCardList({
 		}
 	}, [windowWidth, TABLET, LAPTOP]);
 
-	const displayedMovies = movies.slice(0, displayCount);
+	const displayedMovies = isSavedMoviesPath
+		? savedMovies.slice(0, displayCount)
+		: foundMovies.slice(0, displayCount);
 
 	const handleShowMore = () => {
 		let INITIAL_MOVIE_COUNT;
@@ -53,17 +58,35 @@ export default function MoviesCardList({
 	return (
 		<section className="movies-layout">
 			<ul className="movies-layout__list">
-				{displayedMovies.map((movie) => (
-					<li key={movie.id} className="movies-layout__item">
-						<MoviesCard
-							movie={movie}
-							appClassNames={appClassNames}
-							isSavedMovieCard={isSavedMoviesPath}
-						/>
-					</li>
-				))}
+				{isSavedMoviesPath
+					? displayedMovies.map((movie) => (
+							<li key={movie._id} className="movies-layout__item">
+								<MoviesCard
+									movie={movie}
+									foundMovies={foundMovies}
+									savedMovies={savedMovies}
+									appClassNames={appClassNames}
+									isSavedMovieCard={isSavedMoviesPath}
+									onSave={onSave}
+									onDelete={onDelete}
+								/>
+							</li>
+					  ))
+					: displayedMovies.map((movie) => (
+							<li key={movie.id} className="movies-layout__item">
+								<MoviesCard
+									movie={movie}
+									foundMovies={foundMovies}
+									savedMovies={savedMovies}
+									appClassNames={appClassNames}
+									isSavedMovieCard={isSavedMoviesPath}
+									onSave={onSave}
+									onDelete={onDelete}
+								/>
+							</li>
+					  ))}
 			</ul>
-			{displayCount < movies.length && (
+			{!isSavedMoviesPath && displayCount < foundMovies.length && (
 				<div className="movies-layout__show-more">
 					<button
 						className={`movies-layout__show-more-btn ${appClassNames.button}`}

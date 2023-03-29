@@ -65,3 +65,32 @@ export const getSavedMovies = () => {
 		credentials: 'include',
 	});
 };
+
+export const addSavedMovie = (movie) => {
+	return request({
+		url: '/movies',
+		method: 'POST',
+		credentials: 'include',
+		data: {
+			country: movie.country,
+			director: movie.director,
+			duration: movie.duration,
+			year: movie.year,
+			description: movie.description,
+			image: `https://api.nomoreparties.co${movie.image.url}`,
+			trailerLink: movie.trailerLink,
+			thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+			movieId: movie.id.toString(),
+			nameRU: movie.nameRU,
+			nameEN: movie.nameEN,
+		},
+	});
+};
+
+export const deleteSavedMovie = (id)=>{
+  return request({
+		url: `/movies/${id}`,
+		method: 'DELETE',
+		credentials: 'include',
+	});
+}

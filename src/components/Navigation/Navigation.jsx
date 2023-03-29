@@ -15,7 +15,6 @@ export default function Navigation({ className, onClick }) {
 					<li className="navigation__item">
 						<NavLink
 							className={({ isActive }) => (isActive ? linkStyleActive : linkStyle)}
-							// activeClassName="navigation__link_state_active"
 							to="/movies"
 						>
 							Фильмы
