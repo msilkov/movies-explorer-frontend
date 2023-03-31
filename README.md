@@ -2,6 +2,10 @@
 
 ## Pull request link: https://github.com/msilkov/movies-explorer-frontend/pull/6
 
+## Project links:
+msilkov.diploma.nomoredomains.work
+api.msilkov.diploma.nomoredomains.work
+
 ## Макет Figma: https://disk.yandex.ru/d/Qnkf-S_EYcBFUg
 ## Описание проекта:
 "Movies Explorer (React App)" - фронтенд дипломного проекта на курсе веб-разработки в Яндекс Практикуме.
