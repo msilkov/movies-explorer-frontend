@@ -11,27 +11,30 @@ export default function Login({ onLogin, className }) {
 		password: '',
 	};
 	const [userData, setUserData] = useState(initialUserData);
-
-	function handleChange(e) {
-		const { name, value } = e.target;
-		setUserData((oldData) => ({
-			...oldData,
-			[name]: value,
-		}));
-	}
-
+	
 	const {
 		register,
 		formState: { errors, isValid },
 		handleSubmit,
+		setValue,
 	} = useForm({
-		mode: 'onBlur',
+		mode: 'onChange',
 	});
-
+	
 	function handleFormSubmit() {
 		const { email, password } = userData;
 		if (!email || !password) return;
 		onLogin(email, password);
+	}
+	
+	function handleChange(e) {
+		const { name, value } = e.target;
+		setValue(name, value, { shouldValidate: true });
+		
+		setUserData((oldData) => ({
+			...oldData,
+			[name]: value,
+		}));
 	}
 
 	return (

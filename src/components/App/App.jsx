@@ -296,8 +296,7 @@ export default function App() {
 										savedMovies={savedMovies}
 										onSearchSubmit={handleSearch}
 										onFilterChange={handleChangeFilterCheckbox}
-										// onFilterClick={handleClickFilterCheckbox}
-										// isFilterChecked={isShortMoviesChecked}
+							
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}
@@ -322,8 +321,6 @@ export default function App() {
 										savedMovies={savedMovies}
 										onSearchSubmit={handleSearch}
 										onFilterChange={handleChangeFilterCheckbox}
-										// onFilterClick={handleClickFilterCheckbox}
-										// isFilterChecked={isShortMoviesChecked}
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}

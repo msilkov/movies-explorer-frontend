@@ -7,8 +7,7 @@ export default function SearchSection({
 	appClassNames,
 	onSearchSubmit,
 	onFilterChange,
-	onFilterClick,
-	isFilterChecked,
+
 }) {
 	return (
 		<section className="search">
@@ -22,8 +21,7 @@ export default function SearchSection({
 					label={'Короткометражки'}
 					className="search__filter"
 					onFilterChange={onFilterChange}
-					onFilterClick={onFilterClick}
-					checked={isFilterChecked}
+			
 				/>
 			</div>
 		</section>

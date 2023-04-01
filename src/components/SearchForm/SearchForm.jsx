@@ -41,7 +41,7 @@ export default function SearchForm({
 		>
 			<input
 				{...register('search', {
-					value: true,
+					
 					message: 'Введите ключевое слово для поиска',
 					validate: (value) =>
 						value.trim() !== '' || 'Введите ключевое слово для поиска',

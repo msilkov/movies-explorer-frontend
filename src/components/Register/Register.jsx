@@ -11,28 +11,32 @@ export default function Register({ className, onRegister }) {
 		email: '',
 		password: '',
 	};
-	const [userData, setUserData] = useState(initialUserData);
 
-	function handleChange(e) {
-		const { name, value } = e.target;
-		setUserData((oldData) => ({
-			...oldData,
-			[name]: value,
-		}));
-	}
+	const [userData, setUserData] = useState(initialUserData);
 
 	const {
 		register,
 		formState: { errors, isValid },
 		handleSubmit,
+		setValue,
 	} = useForm({
-		mode: 'onBlur',
+		mode: 'onChange',
 	});
 
 	function handleFormSubmit() {
 		const { name, email, password } = userData;
 		if (!name || !email || !password) return;
 		onRegister(name, email, password);
+	}
+
+	function handleChange(e) {
+		const { name, value } = e.target;
+		setValue(name, value, { shouldValidate: true });
+
+		setUserData((oldData) => ({
+			...oldData,
+			[name]: value,
+		}));
 	}
 
 	return (
