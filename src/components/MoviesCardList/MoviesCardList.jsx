@@ -46,11 +46,11 @@ export default function MoviesCardList({
 	const handleShowMore = () => {
 		let INITIAL_MOVIE_COUNT;
 		if (windowWidth >= LAPTOP) {
-			INITIAL_MOVIE_COUNT = 12;
+			INITIAL_MOVIE_COUNT = 3;
 		} else if (windowWidth >= TABLET) {
-			INITIAL_MOVIE_COUNT = 8;
+			INITIAL_MOVIE_COUNT = 2;
 		} else {
-			INITIAL_MOVIE_COUNT = 5;
+			INITIAL_MOVIE_COUNT = 2;
 		}
 		setDisplayCount(displayCount + INITIAL_MOVIE_COUNT);
 	};
