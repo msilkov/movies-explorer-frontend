@@ -10,6 +10,7 @@ export default function SearchForm({
 	appClassNames,
 	onSearchSubmit,
 }) {
+
 	const [searchQuery, setSearchQuery] = useState('');
 	const {
 		register,
@@ -49,7 +50,7 @@ export default function SearchForm({
 				className="form-search__input"
 				id="searchQuery"
 				type="text"
-				value={searchQuery}
+				value={searchQuery === null ? '' : searchQuery}
 				placeholder="Фильм"
 				onChange={handleSearchInputChange}
 			/>

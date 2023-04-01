@@ -79,6 +79,7 @@ export default function App() {
 					setIsShortSavedMoviesChecked(
 						isShortSavedMoviesCheckedFromStorage || false
 					);
+					
 				})
 				.catch((err) => {
 					console.log(`Ошибка при загрузке данных с сервера: ${err}`);
