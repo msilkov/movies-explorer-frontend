@@ -34,11 +34,15 @@ export default function App() {
 
 	const IsSavedMoviesPath = location.pathname === '/saved-movies';
 	const IsMoviesPath = location.pathname === '/movies';
-	const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+	const IsLoginPath = location.pathname === '/signin';
+	const IsRegisterPath = location.pathname === '/signup';
+
 
 	useEffect(() => {
-		localStorage.setItem('lastVisitedPage', location.pathname);
-	}, [location.pathname]);
+		if (isLoggedIn && (IsLoginPath || IsRegisterPath)) {
+			navigate('/');
+		}
+	}, [isLoggedIn, IsLoginPath, IsRegisterPath, navigate]);
 
 	useEffect(() => {
 		mainApi
@@ -47,7 +51,6 @@ export default function App() {
 				if (userData) {
 					setLoggedIn(true);
 					setCurrentUser(userData);
-					navigate(lastVisitedPage);
 				}
 			})
 			.catch((err) => {
@@ -79,7 +82,6 @@ export default function App() {
 					setIsShortSavedMoviesChecked(
 						isShortSavedMoviesCheckedFromStorage || false
 					);
-					
 				})
 				.catch((err) => {
 					console.log(`Ошибка при загрузке данных с сервера: ${err}`);
@@ -279,6 +281,10 @@ export default function App() {
 			handleMoviesFilter(storedInitialMovies, newSearchQuery);
 			localStorage.setItem('searchQuery', JSON.stringify(newSearchQuery));
 		}
+	};
+
+	const navigateToHomePage = () => {
+		navigate('/');
 	};
 
 	return (

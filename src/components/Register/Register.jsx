@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Form from '../Form/Form';
 
-export default function Register({ className, onRegister }) {
+export default function Register({className, onRegister }) {
 	const initialUserData = {
 		name: '',
 		email: '',
