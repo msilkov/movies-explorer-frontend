@@ -30,7 +30,7 @@ export default function Movies({
 			{isLoading && <Preloader />}
 
 			{isError && (
-				<ErrorMessage message={errorMessage} className="movies__error" />
+				<ErrorMessage error={isError} message={errorMessage} className="movies__error" />
 			)}
 
 			{!isLoading && !isError && (

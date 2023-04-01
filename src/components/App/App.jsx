@@ -37,7 +37,6 @@ export default function App() {
 	const IsLoginPath = location.pathname === '/signin';
 	const IsRegisterPath = location.pathname === '/signup';
 
-
 	useEffect(() => {
 		if (isLoggedIn && (IsLoginPath || IsRegisterPath)) {
 			navigate('/');
@@ -228,27 +227,48 @@ export default function App() {
 		if (IsMoviesPath) {
 			setIsShortMoviesChecked(!isShortMoviesChecked);
 			localStorage.setItem('moviesCheckbox', !isShortMoviesChecked);
-			const foundMoviesFromStorage = JSON.parse(
-				localStorage.getItem('foundMovies')
-			);
 
-			if (isShortMoviesChecked && foundMoviesFromStorage) {
+			if (JSON.parse(localStorage.getItem('moviesCheckbox'))) {
+				const foundMoviesFromStorage = JSON.parse(
+					localStorage.getItem('foundMovies')
+				);
+
 				const filteredMovies = foundMoviesFromStorage.filter(
 					(movie) => movie.duration < 40
 				);
 				setFoundMovies(filteredMovies);
 				localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
+			} else if (!JSON.parse(localStorage.getItem('moviesCheckbox'))) {
+				const userSearchQueryFromStorage = JSON.parse(
+					localStorage.getItem('searchQuery')
+				);
+				const storedInitialMovies = JSON.parse(
+					localStorage.getItem('initialMovies')
+				);
+				const filteredMovies = storedInitialMovies.filter((movie) => {
+					const name = movie.nameRU.toLowerCase();
+					const search = userSearchQueryFromStorage.toLowerCase();
+					return name.includes(search);
+				});
+				setFoundMovies(filteredMovies);
+				localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
 			}
-			const userSearchQueryFromStorage = JSON.parse(
-				localStorage.getItem('searchQuery')
-			);
-			const storedInitialMovies = JSON.parse(
-				localStorage.getItem('initialMovies')
-			);
-			handleMoviesFilter(storedInitialMovies, userSearchQueryFromStorage);
 		} else if (IsSavedMoviesPath) {
 			setIsShortSavedMoviesChecked(!isShortSavedMoviesChecked);
 			localStorage.setItem('savedMoviesCheckbox', !isShortSavedMoviesChecked);
+
+			if (JSON.parse(localStorage.getItem('savedMoviesCheckbox'))) {
+				const filteredMovies = savedMovies.filter(
+					(movie) => movie.duration < 40
+				);
+				setSavedMovies(filteredMovies);
+			
+			} else if(!JSON.parse(localStorage.getItem('savedMoviesCheckbox'))){
+				const filteredMovies = savedMovies.filter(
+					(movie) => movie.duration > 40
+				);
+				setSavedMovies(filteredMovies);
+			}
 		}
 	};
 
@@ -281,10 +301,6 @@ export default function App() {
 			handleMoviesFilter(storedInitialMovies, newSearchQuery);
 			localStorage.setItem('searchQuery', JSON.stringify(newSearchQuery));
 		}
-	};
-
-	const navigateToHomePage = () => {
-		navigate('/');
 	};
 
 	return (
