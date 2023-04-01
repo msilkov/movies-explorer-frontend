@@ -17,19 +17,14 @@ export default function Profile({
 	const currentUser = useContext(CurrentUserContext);
 
 	const initialUserData = {
-		name: currentUser.name || '',
-		email: currentUser.email || '',
+		name: currentUser.name,
+		email: currentUser.email,
 	};
 	const [userData, setUserData] = useState(initialUserData);
 	const [editMode, setEditMode] = useState(false);
-	const [isUserDataChanged, setIsUserDataChanged] = useState(false);
+	const [isDirty, setIsDirty] = useState(false);
 
-	useEffect(() => {
-    const isDataChanged =
-      userData.name !== currentUser.name || userData.email !== currentUser.email;
-    setIsUserDataChanged(isDataChanged);
-  }, [currentUser, userData]);
-
+	
 	const handleEdit = (e) => {
 		e.preventDefault();
 		setEditMode(true);
@@ -41,19 +36,40 @@ export default function Profile({
 			...oldData,
 			[name]: value,
 		}));
+		setIsDirty(true);
 	};
+
 	const {
 		register,
 		formState: { errors, isValid },
 		handleSubmit,
+		setError,
 	} = useForm({
-		mode: 'onBlur',
+		mode: 'onChange',
+		defaultValues: initialUserData,
+		reValidateMode: 'onChange',
+		shouldUnregister: false,
+		validate: (data) => {
+			const { name, email } = data;
+			if (name === currentUser.name && email === currentUser.email) {
+				setError('name', {
+					type: 'manual',
+					message: 'Вы не внесли изменения в данные',
+				});
+				return false;
+			} else {
+				return true;
+			}
+		},
 	});
 
 	const handleFormSubmit = () => {
 		const { name, email } = userData;
 		if (!name || !email) return;
-		onDataSave(name, email);
+		if (isDirty && (name !== currentUser.name || email !== currentUser.email)) {
+			onDataSave(name, email);
+		}
+		setIsDirty(false);
 		setEditMode(false);
 	};
 
@@ -95,6 +111,7 @@ export default function Profile({
 							<span className="profile__form-span">{userData.name}</span>
 						)}
 					</div>
+					
 					<span className="profile__form-span">
 						{errors?.name && (
 							<p className="profile__form-error">{errors.name.message}</p>
@@ -130,7 +147,7 @@ export default function Profile({
 					<div className="profile__form-group">
 						{editMode ? (
 							<button
-								disabled={!isValid}
+								disabled={!isValid || (!isDirty && !errors.name)}
 								className={`profile__form-btn profile__form-btn_type_save ${className.button}`}
 								type="submit"
 							>
