@@ -21,10 +21,10 @@ export default function SearchForm({
 	useEffect(() => {
 		const userSearchQuery = JSON.parse(localStorage.getItem('searchQuery'));
 		const storedSearchQuery =
-			location.pathname === '/movies' ? userSearchQuery : '';
+			location.pathname === '/movies' ? userSearchQuery : searchQuery;
 
 		setSearchQuery(storedSearchQuery);
-	}, [location.pathname]);
+	}, [location.pathname, searchQuery]);
 
 	function handleFormSubmit() {
 		onSearchSubmit(searchQuery);

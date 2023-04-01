@@ -22,7 +22,9 @@ export default function App() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
+	const [isSuccess, setIsSuccess] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
+	const [successMessage, setSuccessMessage] = useState('');
 	const [foundMovies, setFoundMovies] = useState([]);
 	const [savedMovies, setSavedMovies] = useState([]);
 	const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(false);
@@ -141,9 +143,21 @@ export default function App() {
 			.patchUserInfo(name, email)
 			.then((userData) => {
 				setCurrentUser(userData);
+				setIsSuccess(true);
+				setSuccessMessage('Данные успешно изменены');
 			})
 			.catch((err) => {
 				console.log(`Ошибка при загрузке данных пользователя: ${err}`);
+				setIsError(true);
+				setErrorMessage('Ошибка при обновлении данных пользователя');
+			})
+			.finally(() => {
+				setTimeout(() => {
+					setIsSuccess(false);
+					setSuccessMessage('');
+					setIsError(false);
+					setErrorMessage('');
+				}, 2000);
 			});
 	};
 
@@ -209,7 +223,6 @@ export default function App() {
 	};
 	const handleChangeFilterCheckbox = () => {
 		if (IsMoviesPath) {
-
 			setIsShortMoviesChecked(!isShortMoviesChecked);
 			localStorage.setItem('moviesCheckbox', !isShortMoviesChecked);
 			const foundMoviesFromStorage = JSON.parse(
@@ -230,8 +243,6 @@ export default function App() {
 				localStorage.getItem('initialMovies')
 			);
 			handleMoviesFilter(storedInitialMovies, userSearchQueryFromStorage);
-
-
 		} else if (IsSavedMoviesPath) {
 			setIsShortSavedMoviesChecked(!isShortSavedMoviesChecked);
 			localStorage.setItem('savedMoviesCheckbox', !isShortSavedMoviesChecked);
@@ -296,10 +307,11 @@ export default function App() {
 										savedMovies={savedMovies}
 										onSearchSubmit={handleSearch}
 										onFilterChange={handleChangeFilterCheckbox}
-							
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}
+										successMessage={successMessage}
+										isSuccess={isSuccess}
 										onSave={handleSaveMovie}
 										onDelete={handleDeleteMovie}
 									/>
@@ -343,6 +355,10 @@ export default function App() {
 										className={APP_CLASSES}
 										onLogout={handleLogout}
 										onDataSave={handleUpdateUserInfo}
+										isError={isError}
+										isSuccess={isSuccess}
+										errorMessage={errorMessage}
+										successMessage={successMessage}
 									/>
 								</>
 							</ProtectedRoute>

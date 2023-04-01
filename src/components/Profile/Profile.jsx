@@ -1,10 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Form from '../Form/Form';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import './Profile.css';
-import { useForm } from 'react-hook-form';
 
-export default function Profile({ className, onLogout, onDataSave }) {
+export default function Profile({
+	className,
+	onLogout,
+	onDataSave,
+	isError,
+	isSuccess,
+	errorMessage,
+	successMessage,
+}) {
 	const currentUser = useContext(CurrentUserContext);
 
 	const initialUserData = {
@@ -12,16 +21,22 @@ export default function Profile({ className, onLogout, onDataSave }) {
 		email: currentUser.email || '',
 	};
 	const [userData, setUserData] = useState(initialUserData);
-
 	const [editMode, setEditMode] = useState(false);
+	const [isUserDataChanged, setIsUserDataChanged] = useState(false);
 
-	const handleEdit = (event) => {
-		event.preventDefault();
+	useEffect(() => {
+    const isDataChanged =
+      userData.name !== currentUser.name || userData.email !== currentUser.email;
+    setIsUserDataChanged(isDataChanged);
+  }, [currentUser, userData]);
+
+	const handleEdit = (e) => {
+		e.preventDefault();
 		setEditMode(true);
 	};
 
-	const handleChange = (event) => {
-		const { name, value } = event.target;
+	const handleChange = (e) => {
+		const { name, value } = e.target;
 		setUserData((oldData) => ({
 			...oldData,
 			[name]: value,
@@ -32,7 +47,7 @@ export default function Profile({ className, onLogout, onDataSave }) {
 		formState: { errors, isValid },
 		handleSubmit,
 	} = useForm({
-		mode:'onBlur' 
+		mode: 'onBlur',
 	});
 
 	const handleFormSubmit = () => {
@@ -42,8 +57,8 @@ export default function Profile({ className, onLogout, onDataSave }) {
 		setEditMode(false);
 	};
 
-	const handleLogout = (event) => {
-		event.preventDefault();
+	const handleLogout = (e) => {
+		e.preventDefault();
 		onLogout();
 	};
 
@@ -114,7 +129,8 @@ export default function Profile({ className, onLogout, onDataSave }) {
 					</span>
 					<div className="profile__form-group">
 						{editMode ? (
-							<button disabled={!isValid}
+							<button
+								disabled={!isValid}
 								className={`profile__form-btn profile__form-btn_type_save ${className.button}`}
 								type="submit"
 							>
@@ -122,6 +138,20 @@ export default function Profile({ className, onLogout, onDataSave }) {
 							</button>
 						) : (
 							<>
+								{isError && (
+									<ErrorMessage
+										error={isError}
+										message={errorMessage}
+										className="profile__error"
+									/>
+								)}
+								{isSuccess && (
+									<ErrorMessage
+										success={isSuccess}
+										message={successMessage}
+										className="profile__error"
+									/>
+								)}
 								<button
 									className={`profile__form-btn ${className.button}`}
 									onClick={handleEdit}
