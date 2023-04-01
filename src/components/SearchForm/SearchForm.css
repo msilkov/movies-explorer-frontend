@@ -12,6 +12,8 @@
 	text-align: right;
 }
 .form-search__error{
+	margin: 0;
+	padding: 0 5px;
 	color: #ee3465;
 }
 .form-search__input {

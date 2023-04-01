@@ -16,6 +16,7 @@ export default function Movies({
 	isError,
 	errorMessage,
 	onFilterChange,
+	onFilterClick,
 	isFilterChecked,
 	onSave,
 	onDelete,
@@ -26,6 +27,7 @@ export default function Movies({
 				appClassNames={appClassNames}
 				onSearchSubmit={onSearchSubmit}
 				onFilterChange={onFilterChange}
+				onFilterClick={onFilterClick}
 				isFilterChecked={isFilterChecked}
 			/>
 			{isLoading && <Preloader />}

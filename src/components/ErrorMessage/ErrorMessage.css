@@ -5,7 +5,10 @@
 	line-height: 13px;
 	text-align: center;
 	color: #ff004c;
+  
 }
+
+
 
 .movies__error{
   margin: 0 auto;
@@ -13,4 +16,5 @@
   font-weight: 400;
   font-size: 18px;
 	line-height: 22px;
+	
 }

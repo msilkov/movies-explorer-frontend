@@ -31,7 +31,7 @@ export default function Navigation({ className, onClick }) {
 					<li className="navigation__item">
 						<NavLink
 							onClick={onClick}
-							className={({ isActive }) => (isActive ? linkStyleActive : linkStyle)}
+							className={linkStyle}
 							to="/profile"
 						>
 							<span className="navigation__link-text">Аккаунт</span>

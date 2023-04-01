@@ -56,7 +56,7 @@ export default function SideBar({ className }) {
 							<NavLink
 								className={({ isActive }) =>
 									isActive ? linkStyleActive : linkStyle
-								} 
+								}
 								to="/"
 							>
 								Главная
@@ -83,12 +83,7 @@ export default function SideBar({ className }) {
 							</NavLink>
 						</li>
 						<li className="sidebar__item">
-							<NavLink
-								className={({ isActive }) =>
-									isActive ? linkStyleActive : linkStyle
-								}
-								to="/profile"
-							>
+							<NavLink className={linkStyle} to="/profile">
 								<span className="sidebar__link-text">Аккаунт</span>
 								<img
 									className="sidebar__link-img"

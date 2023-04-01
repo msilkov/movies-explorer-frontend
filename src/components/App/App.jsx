@@ -17,27 +17,35 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 export default function App() {
 	const navigate = useNavigate();
-	const [isLoggedIn, setLoggedIn] = useState(false);
-
 	const location = useLocation();
-	const SavedMoviesPath = location.pathname === '/saved-movies';
 
-	const [initialMovies, setInitialMovies] = useState([]);
+	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [foundMovies, setFoundMovies] = useState([]);
 	const [savedMovies, setSavedMovies] = useState([]);
-	const [isShortMoviesChecked, setShortMoviesChecked] = useState(false);
-	const [userSearchQuery, setUserSearchQuery] = useState('');
+	const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(false);
+	const [isShortSavedMoviesChecked, setIsShortSavedMoviesChecked] =
+		useState(false);
 	const [currentUser, setCurrentUser] = useState({});
+
+	const IsSavedMoviesPath = location.pathname === '/saved-movies';
+	const IsMoviesPath = location.pathname === '/movies';
+	const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+
+	useEffect(() => {
+		localStorage.setItem('lastVisitedPage', location.pathname);
+	}, [location.pathname]);
 
 	useEffect(() => {
 		mainApi
 			.getUserInfo()
-			.then((user) => {
-				if (user) {
+			.then((userData) => {
+				if (userData) {
 					setLoggedIn(true);
+					setCurrentUser(userData);
+					navigate(lastVisitedPage);
 				}
 			})
 			.catch((err) => {
@@ -47,15 +55,28 @@ export default function App() {
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			Promise.all([
-				mainApi.getUserInfo(),
-				mainApi.getSavedMovies(),
-				moviesApi.getMovies(),
-			])
-				.then(([userData, savedMovies, movies]) => {
+			Promise.all([mainApi.getUserInfo(), mainApi.getSavedMovies()])
+				.then(([userData, savedMovies]) => {
 					setCurrentUser(userData);
 					setSavedMovies(savedMovies);
-					setInitialMovies(movies);
+					const foundMoviesFromStorage = JSON.parse(
+						localStorage.getItem('foundMovies')
+					);
+					setFoundMovies(foundMoviesFromStorage || []);
+
+					const isShortMoviesCheckedFromStorage = JSON.parse(
+						localStorage.getItem('moviesCheckbox')
+					);
+
+					setIsShortMoviesChecked(isShortMoviesCheckedFromStorage || false);
+
+					const isShortSavedMoviesCheckedFromStorage = JSON.parse(
+						localStorage.getItem('savedMoviesCheckbox')
+					);
+
+					setIsShortSavedMoviesChecked(
+						isShortSavedMoviesCheckedFromStorage || false
+					);
 				})
 				.catch((err) => {
 					console.log(`Ошибка при загрузке данных с сервера: ${err}`);
@@ -99,6 +120,15 @@ export default function App() {
 			.logout()
 			.then(() => {
 				setLoggedIn(false);
+				setIsLoading(false);
+				setIsError(false);
+				setErrorMessage('');
+				setFoundMovies([]);
+				setSavedMovies([]);
+				setIsShortMoviesChecked(false);
+				setIsShortSavedMoviesChecked(false);
+				setCurrentUser({});
+				localStorage.clear();
 				navigate('/');
 			})
 			.catch((err) => {
@@ -145,53 +175,99 @@ export default function App() {
 			});
 	};
 
-	const handleFilterCheckBox = () => {
-		setShortMoviesChecked(!isShortMoviesChecked);
-	};
-
 	const filterShortMovies = (movies) => {
-		if (!isShortMoviesChecked) return movies;
-		return movies.filter((movie) => movie.duration <= 40);
-	};
-
-	const handleFoundNothing = (movies) => {
-		if (movies.length === 0) {
-			setIsError(true);
-			setErrorMessage('Ничего не найдено');
-			setFoundMovies([]);
-		} else {
-			setFoundMovies(movies);
-			setIsError(false);
-			setErrorMessage('');
+		if (
+			(!isShortMoviesChecked && IsMoviesPath) ||
+			(!isShortSavedMoviesChecked && IsSavedMoviesPath)
+		) {
+			return movies;
 		}
+		return movies.filter((movie) => movie.duration <= 40);
 	};
 
 	const handleMoviesFilter = (moviesArray, newSearchQuery) => {
 		const filteredMovies = filterShortMovies(moviesArray).filter((movie) => {
 			const name = movie.nameRU.toLowerCase();
-			const description = movie.description.toLowerCase();
 			const search = newSearchQuery.toLowerCase();
-			return name.includes(search) || description.includes(search);
+			return name.includes(search);
 		});
-		handleFoundNothing(filteredMovies);
+		if (filteredMovies.length === 0) {
+			setIsError(true);
+			setErrorMessage('Ничего не найдено');
+			setFoundMovies(filteredMovies);
+			localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
+			setTimeout(() => {
+				setIsError(false);
+				setErrorMessage('');
+			}, 2000);
+		} else {
+			setIsError(false);
+			setErrorMessage('');
+			setFoundMovies(filteredMovies);
+			localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
+		}
+	};
+	const handleChangeFilterCheckbox = () => {
+		if (IsMoviesPath) {
+
+			setIsShortMoviesChecked(!isShortMoviesChecked);
+			localStorage.setItem('moviesCheckbox', !isShortMoviesChecked);
+			const foundMoviesFromStorage = JSON.parse(
+				localStorage.getItem('foundMovies')
+			);
+
+			if (isShortMoviesChecked && foundMoviesFromStorage) {
+				const filteredMovies = foundMoviesFromStorage.filter(
+					(movie) => movie.duration < 40
+				);
+				setFoundMovies(filteredMovies);
+				localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
+			}
+			const userSearchQueryFromStorage = JSON.parse(
+				localStorage.getItem('searchQuery')
+			);
+			const storedInitialMovies = JSON.parse(
+				localStorage.getItem('initialMovies')
+			);
+			handleMoviesFilter(storedInitialMovies, userSearchQueryFromStorage);
+
+
+		} else if (IsSavedMoviesPath) {
+			setIsShortSavedMoviesChecked(!isShortSavedMoviesChecked);
+			localStorage.setItem('savedMoviesCheckbox', !isShortSavedMoviesChecked);
+		}
 	};
 
 	const handleSearch = (newSearchQuery) => {
-		setIsError(false);
-		setIsLoading(true);
-		setTimeout(() => {
-			handleMoviesFilter(initialMovies, newSearchQuery);
-			setIsLoading(false);
-			setUserSearchQuery(newSearchQuery);
-		}, 1500);
-	};
+		if (!JSON.parse(localStorage.getItem('initialMovies'))) {
+			setIsLoading(true);
+			moviesApi
+				.getMovies()
+				.then((movies) => {
+					localStorage.setItem('initialMovies', JSON.stringify(movies));
+				})
+				.then(() => {
+					const storedInitialMovies = JSON.parse(
+						localStorage.getItem('initialMovies')
+					);
+					handleMoviesFilter(storedInitialMovies, newSearchQuery);
 
-	const userSearchData = {
-		movies: foundMovies,
-		filter: isShortMoviesChecked,
-		searchQuery: userSearchQuery,
+					localStorage.setItem('searchQuery', JSON.stringify(newSearchQuery));
+				})
+				.catch((err) => {
+					console.log(`Что-то пошло не так: ${err}`);
+				})
+				.finally(() => {
+					setIsLoading(false);
+				});
+		} else if (JSON.parse(localStorage.getItem('initialMovies'))) {
+			const storedInitialMovies = JSON.parse(
+				localStorage.getItem('initialMovies')
+			);
+			handleMoviesFilter(storedInitialMovies, newSearchQuery);
+			localStorage.setItem('searchQuery', JSON.stringify(newSearchQuery));
+		}
 	};
-	localStorage.setItem('storedUserSearch', JSON.stringify(userSearchData));
 
 	return (
 		<div className="app-content">
@@ -215,12 +291,13 @@ export default function App() {
 									<Header className={APP_CLASSES} loggedIn={isLoggedIn} />
 									<Movies
 										appClassNames={APP_CLASSES}
-										isSavedMoviesPath={SavedMoviesPath}
+										isSavedMoviesPath={IsSavedMoviesPath}
 										foundMovies={foundMovies}
 										savedMovies={savedMovies}
 										onSearchSubmit={handleSearch}
-										onFilterChange={handleFilterCheckBox}
-										isFilterChecked={isShortMoviesChecked}
+										onFilterChange={handleChangeFilterCheckbox}
+										// onFilterClick={handleClickFilterCheckbox}
+										// isFilterChecked={isShortMoviesChecked}
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}
@@ -240,12 +317,13 @@ export default function App() {
 									<Header className={APP_CLASSES} loggedIn={isLoggedIn} />
 									<Movies
 										appClassNames={APP_CLASSES}
-										isSavedMoviesPath={SavedMoviesPath}
+										isSavedMoviesPath={IsSavedMoviesPath}
 										foundMovies={foundMovies}
 										savedMovies={savedMovies}
 										onSearchSubmit={handleSearch}
-										onFilterChange={handleFilterCheckBox}
-										isFilterChecked={isShortMoviesChecked}
+										onFilterChange={handleChangeFilterCheckbox}
+										// onFilterClick={handleClickFilterCheckbox}
+										// isFilterChecked={isShortMoviesChecked}
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}
