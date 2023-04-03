@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 import Form from '../Form/Form';
 import searchIcon from '../../images/icons/search-icon.svg';
@@ -12,12 +11,7 @@ export default function SearchForm({
 	onSavedMoviesSearchSubmit,
 }) {
 	const [searchQuery, setSearchQuery] = useState('');
-	const {
-		register,
-		formState: { errors },
-		handleSubmit,
-	} = useForm({ mode: 'onChange' });
-
+	const [searchError, setSearchError] = useState('');
 	const location = useLocation();
 	const IsSavedMoviesPath = location.pathname === '/saved-movies';
 	const IsMoviesPath = location.pathname === '/movies';
@@ -28,11 +22,17 @@ export default function SearchForm({
 		setSearchQuery(storedSearchQuery);
 	}, [IsMoviesPath]);
 
-	function handleFormSubmit() {
-		if (IsSavedMoviesPath) {
-			onSavedMoviesSearchSubmit(searchQuery);
-		} else if (IsMoviesPath) {
-			onMoviesSearchSubmit(searchQuery);
+	function handleFormSubmit(e) {
+		e.preventDefault();
+		if (searchQuery.trim() === '') {
+			setSearchError('Введите ключевое слово для поиска');
+		} else {
+			setSearchError('');
+			if (IsSavedMoviesPath) {
+				onSavedMoviesSearchSubmit(searchQuery);
+			} else if (IsMoviesPath) {
+				onMoviesSearchSubmit(searchQuery);
+			}
 		}
 	}
 
@@ -40,32 +40,22 @@ export default function SearchForm({
 		setSearchQuery(e.target.value);
 	}
 
-	const handleKeyDown = (e) => {
-		if (e.keyCode === 13) {
-			handleSubmit(handleFormSubmit)();
-		}
-	};
-
 	return (
 		<Form
 			className={`form-search ${className}`}
-			onSubmit={handleSubmit(handleFormSubmit)}
+			onSubmit={handleFormSubmit}
 		>
 			<input
-				{...register('search', {
-					required: 'Введите ключевое слово для поиска',
-				})}
 				className="form-search__input"
 				id="searchQuery"
 				type="text"
 				value={searchQuery === null ? '' : searchQuery}
 				placeholder="Фильм"
 				onChange={handleSearchInputChange}
-				onKeyDown={handleKeyDown}
 			/>
 			<span className="form-search__span">
-				{errors?.search && (
-					<p className="form-search__error">{errors.search.message}</p>
+				{searchError && (
+					<p className="form-search__error">{searchError}</p>
 				)}
 			</span>
 			<button
