@@ -93,6 +93,19 @@ export default function App() {
 	}, [isLoggedIn]);
 
 	useEffect(() => {
+		if (isLoggedIn && IsSavedMoviesPath) {
+			mainApi
+				.getSavedMovies()
+				.then((savedMovies) => {
+					setSavedMovies(savedMovies);
+				})
+				.catch((err) => {
+					console.log(`Ошибка при загрузке данных с сервера: ${err}`);
+				});
+		}
+	}, [isLoggedIn, IsSavedMoviesPath]);
+
+	useEffect(() => {
 		setIsError(false);
 		setErrorMessage('');
 	}, [location.pathname]);
