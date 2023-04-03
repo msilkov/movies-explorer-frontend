@@ -16,7 +16,7 @@ export default function SearchForm({
 		register,
 		formState: { errors },
 		handleSubmit,
-	} = useForm();
+	} = useForm({ mode: 'onChange' });
 
 	const location = useLocation();
 	const IsSavedMoviesPath = location.pathname === '/saved-movies';
@@ -25,7 +25,6 @@ export default function SearchForm({
 	useEffect(() => {
 		const userSearchQuery = JSON.parse(localStorage.getItem('searchQuery'));
 		const storedSearchQuery = IsMoviesPath ? userSearchQuery : '';
-
 		setSearchQuery(storedSearchQuery);
 	}, [IsMoviesPath]);
 
@@ -41,6 +40,12 @@ export default function SearchForm({
 		setSearchQuery(e.target.value);
 	}
 
+	const handleKeyDown = (e) => {
+		if (e.keyCode === 13) {
+			handleSubmit(handleFormSubmit)();
+		}
+	};
+
 	return (
 		<Form
 			className={`form-search ${className}`}
@@ -48,9 +53,7 @@ export default function SearchForm({
 		>
 			<input
 				{...register('search', {
-					message: 'Введите ключевое слово для поиска',
-					validate: (value) =>
-						value.trim() !== '' || 'Введите ключевое слово для поиска',
+					required: 'Введите ключевое слово для поиска',
 				})}
 				className="form-search__input"
 				id="searchQuery"
@@ -58,6 +61,7 @@ export default function SearchForm({
 				value={searchQuery === null ? '' : searchQuery}
 				placeholder="Фильм"
 				onChange={handleSearchInputChange}
+				onKeyDown={handleKeyDown}
 			/>
 			<span className="form-search__span">
 				{errors?.search && (
