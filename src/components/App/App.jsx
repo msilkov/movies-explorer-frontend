@@ -130,9 +130,12 @@ export default function App() {
 				setLoggedIn(false);
 				setIsLoading(false);
 				setIsError(false);
+				setIsSuccess(false);
 				setErrorMessage('');
+				setSuccessMessage('');
 				setFoundMovies([]);
 				setSavedMovies([]);
+				setSavedMoviesSubset([]);
 				setIsShortMoviesChecked(false);
 				setIsShortSavedMoviesChecked(false);
 				setCurrentUser({});
