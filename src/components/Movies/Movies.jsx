@@ -9,34 +9,47 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 export default function Movies({
 	appClassNames,
 	isSavedMoviesPath,
-	onSearchSubmit,
-	isLoading,
 	foundMovies,
 	savedMovies,
+	savedMoviesSubset,
+	onMoviesSearchSubmit,
+	onSavedMoviesSearchSubmit,
+	onMoviesFilterChange,
+	onSavedMoviesFilterChange,
+	isLoading,
 	isError,
 	errorMessage,
-	onFilterChange,
+	successMessage,
+	isSuccess,
 	onSave,
 	onDelete,
+	isShortSavedMoviesChecked,
 }) {
 	return (
 		<main className={`${appClassNames.main} movies`}>
 			<SearchSection
 				appClassNames={appClassNames}
-				onSearchSubmit={onSearchSubmit}
-				onFilterChange={onFilterChange}
-		
+				onMoviesSearchSubmit={onMoviesSearchSubmit}
+				onSavedMoviesSearchSubmit={onSavedMoviesSearchSubmit}
+				onMoviesFilterChange={onMoviesFilterChange}
+				onSavedMoviesFilterChange={onSavedMoviesFilterChange}
+				isShortSavedMoviesChecked={isShortSavedMoviesChecked}
 			/>
 			{isLoading && <Preloader />}
 
 			{isError && (
-				<ErrorMessage error={isError} message={errorMessage} className="movies__error" />
+				<ErrorMessage
+					error={isError}
+					message={errorMessage}
+					className="movies__error"
+				/>
 			)}
 
 			{!isLoading && !isError && (
 				<MoviesCardList
 					foundMovies={foundMovies}
 					savedMovies={savedMovies}
+					savedMoviesSubset={savedMoviesSubset}
 					appClassNames={appClassNames}
 					deviceWidth={DEVICE_WIDTH}
 					isSavedMoviesPath={isSavedMoviesPath}

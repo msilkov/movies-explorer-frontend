@@ -2,7 +2,13 @@ import React from 'react';
 import './FilterCheckbox.css';
 import { useLocation } from 'react-router-dom';
 
-export default function FilterCheckbox({ label, className, onFilterChange }) {
+export default function FilterCheckbox({
+	label,
+	className,
+	onMoviesFilterChange,
+	onSavedMoviesFilterChange,
+	isShortSavedMoviesChecked,
+}) {
 	const location = useLocation();
 	const IsSavedMoviesPath = location.pathname === '/saved-movies';
 	const IsMoviesPath = location.pathname === '/movies';
@@ -11,7 +17,15 @@ export default function FilterCheckbox({ label, className, onFilterChange }) {
 		if (IsMoviesPath) {
 			return JSON.parse(localStorage.getItem('moviesCheckbox'));
 		} else if (IsSavedMoviesPath) {
-			return JSON.parse(localStorage.getItem('savedMoviesCheckbox'));
+			return isShortSavedMoviesChecked;
+		}
+	};
+
+	const handleCheckboxChange = () => {
+		if (IsSavedMoviesPath) {
+			onSavedMoviesFilterChange();
+		} else if (IsMoviesPath) {
+			onMoviesFilterChange();
 		}
 	};
 	return (
@@ -22,7 +36,7 @@ export default function FilterCheckbox({ label, className, onFilterChange }) {
 					type="checkbox"
 					id="ios-switch"
 					name="ios-switch"
-					onChange={onFilterChange}
+					onChange={handleCheckboxChange}
 					checked={setFilterCheckboxisChecked()}
 				/>
 				<span className="filterCheckbox__checkbox-area">

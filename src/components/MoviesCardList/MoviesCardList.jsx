@@ -5,6 +5,7 @@ import './MoviesCardList.css';
 export default function MoviesCardList({
 	foundMovies,
 	savedMovies,
+	savedMoviesSubset,
 	appClassNames,
 	deviceWidth,
 	isSavedMoviesPath,
@@ -14,6 +15,11 @@ export default function MoviesCardList({
 	const { TABLET, LAPTOP } = deviceWidth;
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 	const [displayCount, setDisplayCount] = useState(0);
+	const isShortMovies = JSON.parse(localStorage.getItem('savedMoviesCheckbox'));
+	const displayedMovies = foundMovies.slice(0, displayCount);
+	const displayedSavedMovies = isShortMovies
+		? savedMoviesSubset.slice(0, displayCount)
+		: savedMovies.slice(0, displayCount);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -30,18 +36,18 @@ export default function MoviesCardList({
 	}, []);
 
 	useEffect(() => {
-		if (windowWidth >= LAPTOP) {
-			setDisplayCount(12);
-		} else if (windowWidth >= TABLET) {
-			setDisplayCount(8);
-		} else {
-			setDisplayCount(5);
+		if (isSavedMoviesPath) {
+			setDisplayCount(savedMovies.length);
+		} else if (!isSavedMoviesPath) {
+			if (windowWidth >= LAPTOP) {
+				setDisplayCount(12);
+			} else if (windowWidth >= TABLET) {
+				setDisplayCount(8);
+			} else {
+				setDisplayCount(5);
+			}
 		}
-	}, [windowWidth, TABLET, LAPTOP]);
-
-	const displayedMovies = isSavedMoviesPath
-		? savedMovies.slice(0, displayCount)
-		: foundMovies.slice(0, displayCount);
+	}, [isSavedMoviesPath, savedMovies.length, windowWidth, TABLET, LAPTOP]);
 
 	const handleShowMore = () => {
 		let INITIAL_MOVIE_COUNT;
@@ -59,7 +65,7 @@ export default function MoviesCardList({
 		<section className="movies-layout">
 			<ul className="movies-layout__list">
 				{isSavedMoviesPath
-					? displayedMovies.map((movie) => (
+					? displayedSavedMovies.map((movie) => (
 							<li key={movie._id} className="movies-layout__item">
 								<MoviesCard
 									movie={movie}

@@ -27,6 +27,7 @@ export default function App() {
 	const [successMessage, setSuccessMessage] = useState('');
 	const [foundMovies, setFoundMovies] = useState([]);
 	const [savedMovies, setSavedMovies] = useState([]);
+	const [savedMoviesSubset, setSavedMoviesSubset] = useState([]);
 	const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(false);
 	const [isShortSavedMoviesChecked, setIsShortSavedMoviesChecked] =
 		useState(false);
@@ -68,16 +69,19 @@ export default function App() {
 					);
 					setFoundMovies(foundMoviesFromStorage || []);
 
+					const savedMoviesSubsetFromStorage = JSON.parse(
+						localStorage.getItem('savedMoviesSubset')
+					);
+					setSavedMoviesSubset(savedMoviesSubsetFromStorage || []);
+
 					const isShortMoviesCheckedFromStorage = JSON.parse(
 						localStorage.getItem('moviesCheckbox')
 					);
-
 					setIsShortMoviesChecked(isShortMoviesCheckedFromStorage || false);
 
 					const isShortSavedMoviesCheckedFromStorage = JSON.parse(
 						localStorage.getItem('savedMoviesCheckbox')
 					);
-
 					setIsShortSavedMoviesChecked(
 						isShortSavedMoviesCheckedFromStorage || false
 					);
@@ -198,95 +202,117 @@ export default function App() {
 		) {
 			return movies;
 		}
-		return movies.filter((movie) => movie.duration <= 40);
+		const shortMovies = movies.filter((movie) => movie.duration <= 40);
+		return shortMovies;
 	};
 
-	const handleMoviesFilter = (moviesArray, newSearchQuery) => {
+	const filterMovies = (moviesArray, newSearchQuery) => {
 		const filteredMovies = filterShortMovies(moviesArray).filter((movie) => {
 			const name = movie.nameRU.toLowerCase();
 			const search = newSearchQuery.toLowerCase();
 			return name.includes(search);
 		});
+		return filteredMovies;
+	};
+
+	const handleMoviesFilter = (moviesArray, newSearchQuery) => {
+		const filteredMovies = filterMovies(moviesArray, newSearchQuery);
+
+		setIsError(filteredMovies.length === 0);
+		setErrorMessage(filteredMovies.length === 0 ? 'Ничего не найдено' : '');
+		setFoundMovies(filteredMovies);
+		localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
 		if (filteredMovies.length === 0) {
-			setIsError(true);
-			setErrorMessage('Ничего не найдено');
-			setFoundMovies(filteredMovies);
-			localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
 			setTimeout(() => {
 				setIsError(false);
 				setErrorMessage('');
 			}, 2000);
-		} else {
-			setIsError(false);
-			setErrorMessage('');
-			setFoundMovies(filteredMovies);
-			localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
 		}
 	};
-	const handleChangeFilterCheckbox = () => {
-		if (IsMoviesPath) {
-			setIsShortMoviesChecked(!isShortMoviesChecked);
-			localStorage.setItem('moviesCheckbox', !isShortMoviesChecked);
 
-			if (JSON.parse(localStorage.getItem('moviesCheckbox'))) {
-				const foundMoviesFromStorage = JSON.parse(
-					localStorage.getItem('foundMovies')
-				);
+	const handleSavedMoviesFilter = (moviesArray, newSearchQuery) => {
+		const filteredMovies = filterMovies(moviesArray, newSearchQuery);
 
-				const filteredMovies = foundMoviesFromStorage.filter(
-					(movie) => movie.duration < 40
-				);
-				setFoundMovies(filteredMovies);
-				localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
-			} else if (!JSON.parse(localStorage.getItem('moviesCheckbox'))) {
-				const userSearchQueryFromStorage = JSON.parse(
-					localStorage.getItem('searchQuery')
-				);
-				const storedInitialMovies = JSON.parse(
-					localStorage.getItem('initialMovies')
-				);
-				const filteredMovies = storedInitialMovies.filter((movie) => {
+		setIsError(filteredMovies.length === 0);
+		setErrorMessage(filteredMovies.length === 0 ? 'Ничего не найдено' : '');
+		setSavedMovies(filteredMovies);
+
+		if (filteredMovies.length === 0) {
+			setTimeout(() => {
+				setIsError(false);
+				setErrorMessage('');
+			}, 2000);
+		}
+	};
+
+	const handleChangeMoviesFilterCheckbox = () => {
+		setIsShortMoviesChecked(!isShortMoviesChecked);
+
+		localStorage.setItem('moviesCheckbox', !isShortMoviesChecked);
+
+		const checkboxValue = JSON.parse(localStorage.getItem('moviesCheckbox'));
+		const moviesFromStorage = JSON.parse(localStorage.getItem('foundMovies'));
+		const searchQueryFromStorage = JSON.parse(
+			localStorage.getItem('searchQuery')
+		);
+		const initialMoviesFromStorage = JSON.parse(
+			localStorage.getItem('initialMovies')
+		);
+
+		let filteredMovies = checkboxValue
+			? moviesFromStorage.filter((movie) => movie.duration < 40)
+			: initialMoviesFromStorage.filter((movie) => {
 					const name = movie.nameRU.toLowerCase();
-					const search = userSearchQueryFromStorage.toLowerCase();
+					const search = searchQueryFromStorage.toLowerCase();
 					return name.includes(search);
-				});
-				setFoundMovies(filteredMovies);
-				localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
-			}
-		} else if (IsSavedMoviesPath) {
-			setIsShortSavedMoviesChecked(!isShortSavedMoviesChecked);
-			localStorage.setItem('savedMoviesCheckbox', !isShortSavedMoviesChecked);
-
-			if (JSON.parse(localStorage.getItem('savedMoviesCheckbox'))) {
-				const filteredMovies = savedMovies.filter(
-					(movie) => movie.duration < 40
-				);
-				setSavedMovies(filteredMovies);
-			
-			} else if(!JSON.parse(localStorage.getItem('savedMoviesCheckbox'))){
-				const filteredMovies = savedMovies.filter(
-					(movie) => movie.duration > 40
-				);
-				setSavedMovies(filteredMovies);
-			}
+			  });
+		setIsError(filteredMovies.length === 0);
+		setErrorMessage(filteredMovies.length === 0 ? 'Ничего не найдено' : '');
+		if (filteredMovies.length === 0) {
+			setTimeout(() => {
+				setIsError(false);
+				setErrorMessage('');
+			}, 2000);
 		}
+
+		setFoundMovies(filteredMovies);
+		localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
 	};
 
-	const handleSearch = (newSearchQuery) => {
-		if (!JSON.parse(localStorage.getItem('initialMovies'))) {
+	const handleChangeSavedMoviesFilterCheckbox = () => {
+		setIsShortSavedMoviesChecked(!isShortSavedMoviesChecked);
+		localStorage.setItem('savedMoviesCheckbox', !isShortSavedMoviesChecked);
+		const checkboxValue = JSON.parse(
+			localStorage.getItem('savedMoviesCheckbox')
+		);
+		const filteredMovies = checkboxValue
+			? savedMovies.filter((movie) => movie.duration < 40)
+			: savedMovies;
+
+		setIsError(filteredMovies.length === 0);
+		setErrorMessage(filteredMovies.length === 0 ? 'Ничего не найдено' : '');
+		if (filteredMovies.length === 0) {
+			setTimeout(() => {
+				setIsError(false);
+				setErrorMessage('');
+			}, 2000);
+		}
+
+		setSavedMoviesSubset(filteredMovies);
+		localStorage.setItem('savedMoviesSubset', JSON.stringify(filteredMovies));
+	};
+
+	const handleMoviesSearch = (newSearchQuery) => {
+		const storedInitialMovies = JSON.parse(
+			localStorage.getItem('initialMovies')
+		);
+		if (!storedInitialMovies) {
 			setIsLoading(true);
 			moviesApi
 				.getMovies()
 				.then((movies) => {
 					localStorage.setItem('initialMovies', JSON.stringify(movies));
-				})
-				.then(() => {
-					const storedInitialMovies = JSON.parse(
-						localStorage.getItem('initialMovies')
-					);
-					handleMoviesFilter(storedInitialMovies, newSearchQuery);
-
-					localStorage.setItem('searchQuery', JSON.stringify(newSearchQuery));
+					handleMoviesFilter(movies, newSearchQuery);
 				})
 				.catch((err) => {
 					console.log(`Что-то пошло не так: ${err}`);
@@ -294,13 +320,25 @@ export default function App() {
 				.finally(() => {
 					setIsLoading(false);
 				});
-		} else if (JSON.parse(localStorage.getItem('initialMovies'))) {
-			const storedInitialMovies = JSON.parse(
-				localStorage.getItem('initialMovies')
-			);
+		} else {
 			handleMoviesFilter(storedInitialMovies, newSearchQuery);
-			localStorage.setItem('searchQuery', JSON.stringify(newSearchQuery));
 		}
+		localStorage.setItem('searchQuery', JSON.stringify(newSearchQuery));
+	};
+
+	const handleSavedMoviesSearch = (newSearchQuery) => {
+		setIsLoading(true);
+		mainApi
+			.getSavedMovies()
+			.then((movies) => {
+				handleSavedMoviesFilter(movies, newSearchQuery);
+			})
+			.catch((err) => {
+				console.log(`Что-то пошло не так: ${err}`);
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
 	};
 
 	return (
@@ -328,8 +366,13 @@ export default function App() {
 										isSavedMoviesPath={IsSavedMoviesPath}
 										foundMovies={foundMovies}
 										savedMovies={savedMovies}
-										onSearchSubmit={handleSearch}
-										onFilterChange={handleChangeFilterCheckbox}
+										savedMoviesSubset={savedMoviesSubset}
+										onMoviesSearchSubmit={handleMoviesSearch}
+										onSavedMoviesSearchSubmit={handleSavedMoviesSearch}
+										onMoviesFilterChange={handleChangeMoviesFilterCheckbox}
+										onSavedMoviesFilterChange={
+											handleChangeSavedMoviesFilterCheckbox
+										}
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}
@@ -337,6 +380,7 @@ export default function App() {
 										isSuccess={isSuccess}
 										onSave={handleSaveMovie}
 										onDelete={handleDeleteMovie}
+										isShortSavedMoviesChecked={isShortSavedMoviesChecked}
 									/>
 									<Footer className={APP_CLASSES} />
 								</>
@@ -354,13 +398,19 @@ export default function App() {
 										isSavedMoviesPath={IsSavedMoviesPath}
 										foundMovies={foundMovies}
 										savedMovies={savedMovies}
-										onSearchSubmit={handleSearch}
-										onFilterChange={handleChangeFilterCheckbox}
+										savedMoviesSubset={savedMoviesSubset}
+										onMoviesSearchSubmit={handleMoviesSearch}
+										onSavedMoviesSearchSubmit={handleSavedMoviesSearch}
+										onMoviesFilterChange={handleChangeMoviesFilterCheckbox}
+										onSavedMoviesFilterChange={
+											handleChangeSavedMoviesFilterCheckbox
+										}
 										isLoading={isLoading}
 										isError={isError}
 										errorMessage={errorMessage}
 										onSave={handleSaveMovie}
 										onDelete={handleDeleteMovie}
+										isShortSavedMoviesChecked={isShortSavedMoviesChecked}
 									/>
 									<Footer className={APP_CLASSES} />
 								</>

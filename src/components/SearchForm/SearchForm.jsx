@@ -8,27 +8,33 @@ import './SearchForm.css';
 export default function SearchForm({
 	className,
 	appClassNames,
-	onSearchSubmit,
+	onMoviesSearchSubmit,
+	onSavedMoviesSearchSubmit,
 }) {
-
 	const [searchQuery, setSearchQuery] = useState('');
 	const {
 		register,
 		formState: { errors },
 		handleSubmit,
 	} = useForm();
+
 	const location = useLocation();
+	const IsSavedMoviesPath = location.pathname === '/saved-movies';
+	const IsMoviesPath = location.pathname === '/movies';
 
 	useEffect(() => {
 		const userSearchQuery = JSON.parse(localStorage.getItem('searchQuery'));
-		const storedSearchQuery =
-			location.pathname === '/movies' ? userSearchQuery : '';
+		const storedSearchQuery = IsMoviesPath ? userSearchQuery : '';
 
 		setSearchQuery(storedSearchQuery);
-	}, [location.pathname]);
+	}, [IsMoviesPath]);
 
 	function handleFormSubmit() {
-		onSearchSubmit(searchQuery);
+		if (IsSavedMoviesPath) {
+			onSavedMoviesSearchSubmit(searchQuery);
+		} else if (IsMoviesPath) {
+			onMoviesSearchSubmit(searchQuery);
+		}
 	}
 
 	function handleSearchInputChange(e) {
@@ -42,7 +48,6 @@ export default function SearchForm({
 		>
 			<input
 				{...register('search', {
-					
 					message: 'Введите ключевое слово для поиска',
 					validate: (value) =>
 						value.trim() !== '' || 'Введите ключевое слово для поиска',
