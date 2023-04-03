@@ -27,6 +27,7 @@ export default function App() {
 	const [successMessage, setSuccessMessage] = useState('');
 	const [foundMovies, setFoundMovies] = useState([]);
 	const [savedMovies, setSavedMovies] = useState([]);
+	const [initialSavedMovies, setInitialSavedMovies] = useState([]);
 	const [savedMoviesSubset, setSavedMoviesSubset] = useState([]);
 	const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(false);
 	const [isShortSavedMoviesChecked, setIsShortSavedMoviesChecked] =
@@ -64,6 +65,7 @@ export default function App() {
 				.then(([userData, savedMovies]) => {
 					setCurrentUser(userData);
 					setSavedMovies(savedMovies);
+					setInitialSavedMovies(savedMovies);
 					const foundMoviesFromStorage = JSON.parse(
 						localStorage.getItem('foundMovies')
 					);
@@ -251,7 +253,7 @@ export default function App() {
 
 		setIsError(filteredMovies.length === 0);
 		setErrorMessage(filteredMovies.length === 0 ? 'Ничего не найдено' : '');
-		setSavedMovies(filteredMovies);
+		 setSavedMovies(filteredMovies);
 
 		if (filteredMovies.length === 0) {
 			setTimeout(() => {
@@ -397,6 +399,7 @@ export default function App() {
 										onSave={handleSaveMovie}
 										onDelete={handleDeleteMovie}
 										isShortSavedMoviesChecked={isShortSavedMoviesChecked}
+										initialSavedMovies={initialSavedMovies}
 									/>
 									<Footer className={APP_CLASSES} />
 								</>
@@ -427,6 +430,7 @@ export default function App() {
 										onSave={handleSaveMovie}
 										onDelete={handleDeleteMovie}
 										isShortSavedMoviesChecked={isShortSavedMoviesChecked}
+										initialSavedMovies={initialSavedMovies}
 									/>
 									<Footer className={APP_CLASSES} />
 								</>

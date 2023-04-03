@@ -4,6 +4,7 @@ import './MoviesCard.css';
 export default function MoviesCard({
 	movie,
 	foundMovies,
+	initialSavedMovies,
 	savedMovies,
 	appClassNames,
 	isSavedMovieCard,
@@ -11,6 +12,10 @@ export default function MoviesCard({
 	onDelete,
 }) {
 	const isOwnSaved = savedMovies.some(
+		(savedMovie) => savedMovie.movieId === movie.id
+	);
+
+	const isInitialSaved = initialSavedMovies.some(
 		(savedMovie) => savedMovie.movieId === movie.id
 	);
 
@@ -37,7 +42,7 @@ export default function MoviesCard({
 	};
 
 	const movieSaveButtonClassName = `movie-card__save-btn${
-		isOwnSaved ? ' movie-card__save-btn_type_saved' : ''
+		isOwnSaved || isInitialSaved ? ' movie-card__save-btn_type_saved' : ''
 	}`;
 
 	const movieDeleteButtonClassName = 'movie-card__delete-btn';

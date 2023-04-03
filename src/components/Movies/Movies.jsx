@@ -24,6 +24,7 @@ export default function Movies({
 	onSave,
 	onDelete,
 	isShortSavedMoviesChecked,
+	initialSavedMovies,
 }) {
 	return (
 		<main className={`${appClassNames.main} movies`}>
@@ -55,6 +56,7 @@ export default function Movies({
 					isSavedMoviesPath={isSavedMoviesPath}
 					onSave={onSave}
 					onDelete={onDelete}
+					initialSavedMovies={initialSavedMovies}
 				/>
 			)}
 		</main>

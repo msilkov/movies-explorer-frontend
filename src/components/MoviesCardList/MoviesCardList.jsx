@@ -11,6 +11,7 @@ export default function MoviesCardList({
 	isSavedMoviesPath,
 	onSave,
 	onDelete,
+	initialSavedMovies,
 }) {
 	const { TABLET, LAPTOP } = deviceWidth;
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -75,6 +76,7 @@ export default function MoviesCardList({
 									isSavedMovieCard={isSavedMoviesPath}
 									onSave={onSave}
 									onDelete={onDelete}
+									initialSavedMovies={initialSavedMovies}
 								/>
 							</li>
 					  ))
@@ -88,6 +90,7 @@ export default function MoviesCardList({
 									isSavedMovieCard={isSavedMoviesPath}
 									onSave={onSave}
 									onDelete={onDelete}
+									initialSavedMovies={initialSavedMovies}
 								/>
 							</li>
 					  ))}
