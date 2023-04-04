@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -14,6 +13,7 @@ import { APP_CLASSES } from '../../utils/constants';
 import * as moviesApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import './App.css';
 
 export default function App() {
 	const navigate = useNavigate();
@@ -36,14 +36,6 @@ export default function App() {
 
 	const IsSavedMoviesPath = location.pathname === '/saved-movies';
 	const IsMoviesPath = location.pathname === '/movies';
-	const IsLoginPath = location.pathname === '/signin';
-	const IsRegisterPath = location.pathname === '/signup';
-
-	useEffect(() => {
-		if (isLoggedIn && (IsLoginPath || IsRegisterPath)) {
-			navigate('/');
-		}
-	}, [isLoggedIn, IsLoginPath, IsRegisterPath, navigate]);
 
 	useEffect(() => {
 		mainApi
@@ -52,12 +44,21 @@ export default function App() {
 				if (userData) {
 					setLoggedIn(true);
 					setCurrentUser(userData);
+					localStorage.setItem('jwt',userData.email)
 				}
 			})
 			.catch((err) => {
 				console.log(`Что-то пошло не так: ${err}`);
 			});
 	}, []);
+
+	useEffect(() => {
+		const isLoginPath = location.pathname === '/signin';
+		const isRegisterPath = location.pathname === '/signup';
+		if (isLoggedIn && (isLoginPath || isRegisterPath)) {
+			navigate('/');
+		}
+	}, [isLoggedIn, location.pathname, navigate]);
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -253,7 +254,7 @@ export default function App() {
 
 		setIsError(filteredMovies.length === 0);
 		setErrorMessage(filteredMovies.length === 0 ? 'Ничего не найдено' : '');
-		 setSavedMovies(filteredMovies);
+		setSavedMovies(filteredMovies);
 
 		if (filteredMovies.length === 0) {
 			setTimeout(() => {
