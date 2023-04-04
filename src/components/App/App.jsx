@@ -19,7 +19,6 @@ export default function App() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
 	const [isSuccess, setIsSuccess] = useState(false);
@@ -31,11 +30,13 @@ export default function App() {
 	const [savedMoviesSubset, setSavedMoviesSubset] = useState([]);
 	const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(false);
 	const [isShortSavedMoviesChecked, setIsShortSavedMoviesChecked] =
-		useState(false);
+	useState(false);
 	const [currentUser, setCurrentUser] = useState({});
-
+	
 	const IsSavedMoviesPath = location.pathname === '/saved-movies';
 	const IsMoviesPath = location.pathname === '/movies';
+	
+	const [isLoggedIn, setLoggedIn] = useState(false);
 
 	useEffect(() => {
 		mainApi
@@ -44,7 +45,6 @@ export default function App() {
 				if (userData) {
 					setLoggedIn(true);
 					setCurrentUser(userData);
-					localStorage.setItem('jwt',userData.email)
 				}
 			})
 			.catch((err) => {
@@ -52,13 +52,7 @@ export default function App() {
 			});
 	}, []);
 
-	useEffect(() => {
-		const isLoginPath = location.pathname === '/signin';
-		const isRegisterPath = location.pathname === '/signup';
-		if (isLoggedIn && (isLoginPath || isRegisterPath)) {
-			navigate('/');
-		}
-	}, [isLoggedIn, location.pathname, navigate]);
+
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -112,6 +106,14 @@ export default function App() {
 		setIsError(false);
 		setErrorMessage('');
 	}, [location.pathname]);
+
+	useEffect(() => {
+		const isLoginPath = location.pathname === '/signin';
+		const isRegisterPath = location.pathname === '/signup';
+		if (isLoggedIn && (isLoginPath || isRegisterPath)) {
+			navigate('/');
+		}
+	}, [isLoggedIn, location.pathname, navigate]);
 
 	const handleRegister = (name, email, password) => {
 		mainApi
@@ -278,13 +280,18 @@ export default function App() {
 			localStorage.getItem('initialMovies')
 		);
 
-		let filteredMovies = checkboxValue
-			? moviesFromStorage.filter((movie) => movie.duration < 40)
-			: initialMoviesFromStorage.filter((movie) => {
-					const name = movie.nameRU.toLowerCase();
-					const search = searchQueryFromStorage.toLowerCase();
-					return name.includes(search);
-			  });
+		let filteredMovies = [];
+
+		if (moviesFromStorage && moviesFromStorage.length > 0) {
+			filteredMovies = checkboxValue
+				? moviesFromStorage.filter((movie) => movie.duration < 40)
+				: initialMoviesFromStorage.filter((movie) => {
+						const name = movie.nameRU.toLowerCase();
+						const search = searchQueryFromStorage.toLowerCase();
+						return name.includes(search);
+				  });
+		}
+
 		setIsError(filteredMovies.length === 0);
 		setErrorMessage(filteredMovies.length === 0 ? 'Ничего не найдено' : '');
 		if (filteredMovies.length === 0) {

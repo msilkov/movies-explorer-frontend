@@ -15,9 +15,9 @@ export default function FilterCheckbox({
 
 	const setFilterCheckboxisChecked = () => {
 		if (IsMoviesPath) {
-			return JSON.parse(localStorage.getItem('moviesCheckbox'));
+			return JSON.parse(localStorage.getItem('moviesCheckbox')) || false;
 		} else if (IsSavedMoviesPath) {
-			return isShortSavedMoviesChecked;
+			return isShortSavedMoviesChecked || false;
 		}
 	};
 
