@@ -1,7 +1,7 @@
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import './Techs.css';
-import { userTechnologies } from '../../utils/constants';
+import { USER_TECHNOLOGIES } from '../../utils/constants';
 
 
 export default function Techs() {
@@ -15,9 +15,9 @@ export default function Techs() {
 					дипломном проекте.
 				</p>
 				<ul className="techs__list">
-					{Object.keys(userTechnologies).map((key) => (
+					{Object.keys(USER_TECHNOLOGIES).map((key) => (
 						<li className="techs__item" key={key}>
-							{userTechnologies[key]}
+							{USER_TECHNOLOGIES[key]}
 						</li>
 					))}
 				</ul>

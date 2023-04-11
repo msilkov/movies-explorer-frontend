@@ -1,6 +1,6 @@
 .login {
 	padding: 70px;
-	background-color: #FAFAFA;
+	background-color: #fafafa;
 }
 
 .login__content {
@@ -27,7 +27,6 @@
 	font-weight: 400;
 	font-size: 10px;
 	line-height: 12px;
-
 	color: #a0a0a0;
 	margin-bottom: 10px;
 }
@@ -41,23 +40,22 @@
 	border: 1px solid transparent;
 	background-color: #f4f4f4;
 	border-radius: 8px;
+	outline: none;
+	transition: all 0.5s;
+	box-sizing: border-box;
+}
+
+.login__form-input::placeholder {
+	color: #a0a0a0;
 }
 
 .login__form-input:focus {
 	border-color: #3456f3;
 }
 
-.login__form-input_type_error {
-	color: #ee3465;
-}
-
-.login__form-input:last-of-type {
-	margin-bottom: 0;
-}
-
 .login__error {
-	margin-top: 136px;
-	margin-bottom: 30px;
+	padding: 0 20px;
+	margin-bottom: 20px;
 	font-weight: 400;
 	font-size: 10px;
 	line-height: 12px;
@@ -65,6 +63,7 @@
 }
 
 .login__form-submit-btn {
+	margin-top: 158px;
 	padding: 15px;
 	border: none;
 	border-radius: 3px;
@@ -74,6 +73,11 @@
 	line-height: 17px;
 	text-align: center;
 	color: #ffffff;
+}
+
+.login__form-submit-btn:disabled {
+	color: #c2c2c2;
+	background-color: #f4f4f4;
 }
 
 .login__redirect {
@@ -104,7 +108,6 @@
 	.login {
 		padding: 232px 70px 50px;
 	}
-
 }
 
 @media only screen and (max-width: 424px) {
@@ -120,10 +123,8 @@
 		margin: 45px 0 81px;
 	}
 
-	.login__error {
-		margin-top: 225px;
-	}
 	.login__form-submit-btn {
+		margin-top: 247px;
 		font-size: 12px;
 		line-height: 15px;
 	}

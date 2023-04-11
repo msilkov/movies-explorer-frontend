@@ -1,6 +1,6 @@
 import React from 'react';
 import './PortfolioLinks.css';
-import { portfolioLinks } from '../../utils/constants';
+import { PORTFOLIO_LINKS } from '../../utils/constants';
 import linkIcon from '../../images/icons/arrow-icon.svg';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ export default function PortfolioLinks({ className }) {
 	return (
 		<div className="portfolio-links">
 			<ul className="portfolio-links__list">
-				{portfolioLinks.map((link) => (
+				{PORTFOLIO_LINKS.map((link) => (
 					<li className="portfolio-links__item" key={link.id}>
 						<Link
 							to={link.link}
